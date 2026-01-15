@@ -1,734 +1,189 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nuro AI</title>
-  <style>
-    :root{
-      --bg:#0a0b10;
-      --panel:#0f1118cc;
-      --panel2:#0d0f15;
-      --card:#121522;
-      --line:#24283a;
-      --text:#e9eaf2;
-      --muted:#a7abc2;
-      --accent1:#4f46e5;
-      --accent2:#22d3ee;
-      --accent3:#a855f7;
-      --radius:18px;
-    }
-    *{ box-sizing:border-box; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; }
-    body{
-      margin:0; min-height:100vh; color:var(--text);
-      background:
-        radial-gradient(1200px 700px at 15% 15%, #4f46e533, transparent 60%),
-        radial-gradient(900px 500px at 85% 20%, #22d3ee22, transparent 55%),
-        radial-gradient(900px 600px at 70% 85%, #a855f722, transparent 55%),
-        var(--bg);
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nuro AI</title>
 
-    /* Layout */
-    .app{ display:grid; grid-template-columns: 280px 1fr; min-height:100vh; }
-    @media (max-width: 980px){ .app{ grid-template-columns: 1fr; } .sidebar{ position:sticky; top:0; z-index:5; } }
+<style>
+body{
+margin:0;
+font-family:system-ui,Segoe UI,Roboto,Arial;
+background:radial-gradient(1000px 600px at 10% 10%,#4f46e533,transparent 60%),
+radial-gradient(900px 500px at 90% 20%,#22d3ee22,transparent 55%),
+radial-gradient(800px 600px at 70% 85%,#a855f722,transparent 55%),#05060a;
+color:#e9eaf2;
+}
 
-    /* Sidebar */
-    .sidebar{
-      border-right:1px solid var(--line);
-      background: linear-gradient(180deg, #0b0d14cc, #090a0fcc);
-      backdrop-filter: blur(10px);
-      padding:18px;
-      display:flex; flex-direction:column; gap:14px;
-    }
-    .brand{
-      display:flex; gap:12px; align-items:center;
-      padding:10px; border:1px solid var(--line);
-      border-radius: var(--radius);
-      background: #0b0d14aa;
-    }
-    .logo{
-      width:42px; height:42px; border-radius:14px;
-      background: linear-gradient(135deg, var(--accent1), var(--accent2), var(--accent3));
-      box-shadow: 0 0 24px #4f46e533;
-      flex:0 0 auto;
-    }
-    .brand h1{ margin:0; font-size:18px; letter-spacing:0.2px; }
-    .brand .tag{ margin-top:2px; color:var(--muted); font-size:12px; }
+.app{display:grid;grid-template-columns:260px 1fr;min-height:100vh;}
 
-    .nav{ display:flex; flex-direction:column; gap:8px; margin-top:6px; }
-    .navbtn{
-      border:1px solid transparent;
-      background: transparent;
-      color:var(--text);
-      padding:12px;
-      border-radius: 14px;
-      cursor:pointer;
-      text-align:left;
-      display:flex; align-items:center; gap:10px;
-    }
-    .navbtn:hover{ background:#0f1118; border-color: var(--line); }
-    .navbtn.active{
-      background:#0f1118;
-      border-color:#343a55;
-      box-shadow: 0 0 0 2px #343a5533 inset;
-    }
-    .dot{ width:8px; height:8px; border-radius:999px; background: #8b8fa7; }
+.sidebar{
+background:#070914cc;
+border-right:1px solid #1f2233;
+padding:16px;
+display:flex;
+flex-direction:column;
+gap:12px;
+}
 
-    .upgrade{
-      margin-top:auto;
-      border:1px solid #3b3b55;
-      background: linear-gradient(135deg, var(--accent1), var(--accent2), var(--accent3));
-      color:#0b0d14;
-      font-weight:900;
-      padding:12px;
-      border-radius: 14px;
-      cursor:pointer;
-    }
-    .profile{
-      display:flex; gap:10px; align-items:center;
-      padding-top:10px; border-top:1px solid var(--line);
-      color:var(--muted); font-size:13px;
-    }
-    .avatar{
-      width:36px; height:36px; border-radius:999px;
-      background:#171a28; border:1px solid var(--line);
-      display:flex; align-items:center; justify-content:center;
-      color:#cbd5ff; font-weight:900;
-    }
+.brand{display:flex;gap:10px;align-items:center;border:1px solid #1f2233;border-radius:14px;padding:10px;}
+.logo{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,#4f46e5,#22d3ee,#a855f7);}
 
-    /* Main */
-    .main{ padding:22px; }
-    .topbar{
-      display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap;
-      margin-bottom:16px;
-    }
-    .title h2{ margin:0; font-size:40px; letter-spacing:0.2px; }
-    .title .sub{ margin-top:6px; color:var(--muted); }
+.nav button{
+background:none;border:1px solid transparent;color:#e9eaf2;
+padding:12px;border-radius:12px;text-align:left;cursor:pointer;
+}
+.nav button:hover,.nav button.active{background:#0e1020;border-color:#2b2f45;}
 
-    .search{
-      min-width:260px; width:380px; max-width:100%;
-      display:flex; gap:8px; align-items:center;
-      border:1px solid var(--line);
-      border-radius: 14px;
-      padding:10px 12px;
-      background: #0f1118cc;
-      backdrop-filter: blur(10px);
-    }
-    .search input{
-      width:100%;
-      border:none; outline:none;
-      background:transparent; color:var(--text);
-      font-size:14px;
-    }
-    .search .kbd{
-      color:var(--muted); font-size:12px;
-      border:1px solid var(--line);
-      padding:4px 8px;
-      border-radius:10px;
-      background:#0d0f15;
-    }
+.upgrade{margin-top:auto;background:linear-gradient(135deg,#4f46e5,#22d3ee,#a855f7);
+border:none;border-radius:12px;padding:12px;font-weight:900;cursor:pointer;color:#05060a;}
 
-    .panel{
-      border:1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--panel);
-      backdrop-filter: blur(10px);
-      padding:16px;
-    }
+.main{padding:22px;}
 
-    /* Create cards */
-    .cards{
-      display:grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap:12px;
-      margin-top:12px;
-    }
-    @media (max-width: 1100px){ .cards{ grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 650px){ .cards{ grid-template-columns: 1fr; } }
+.topbar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;}
+.search{border:1px solid #1f2233;border-radius:12px;padding:8px 12px;background:#0c0e18;}
+.search input{background:none;border:none;color:white;outline:none;}
 
-    .cardbtn{
-      border:1px solid var(--line);
-      background: #0d0f15;
-      border-radius: 16px;
-      padding:14px;
-      cursor:pointer;
-      display:flex; align-items:center; justify-content:space-between; gap:10px;
-      transition: transform .05s ease;
-    }
-    .cardbtn:hover{ border-color:#3b3b55; }
-    .cardbtn:active{ transform: translateY(1px); }
-    .cardleft{ display:flex; gap:12px; align-items:center; }
-    .icon{
-      width:38px; height:38px; border-radius:14px;
-      display:flex; align-items:center; justify-content:center;
-      background: #151a2a;
-      border:1px solid #2a2f48;
-      color:#c7cbff;
-      font-weight:900;
-    }
-    .cardbtn strong{ display:block; font-size:14px; }
-    .cardbtn span{ display:block; margin-top:2px; color:var(--muted); font-size:12px; }
-    .arrow{ color:var(--muted); font-size:18px; }
+.panel{margin-top:16px;border:1px solid #1f2233;border-radius:16px;padding:16px;background:#0a0c15cc;}
 
-    /* Notes section */
-    .notesHead{
-      display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;
-      margin-top:14px;
-    }
-    .tabs{ display:flex; gap:8px; align-items:center; }
-    .tab{
-      border:1px solid var(--line);
-      background:#0d0f15;
-      color:var(--text);
-      padding:8px 10px;
-      border-radius: 12px;
-      cursor:pointer;
-      font-size:13px;
-    }
-    .tab.active{ border-color:#3b3b55; box-shadow: 0 0 0 2px #3b3b5533 inset; }
-    .ghost{
-      border:1px solid var(--line);
-      background:#0d0f15;
-      color:var(--text);
-      padding:10px 12px;
-      border-radius: 12px;
-      cursor:pointer;
-      font-size:13px;
-    }
-    .ghost:hover{ border-color:#3b3b55; }
-    .primary{
-      border:none;
-      background: linear-gradient(135deg, var(--accent1), var(--accent2), var(--accent3));
-      color:#0b0d14;
-      font-weight:950;
-      padding:10px 12px;
-      border-radius: 12px;
-      cursor:pointer;
-    }
+.card{border:1px solid #1f2233;border-radius:14px;padding:14px;margin-bottom:10px;cursor:pointer;}
+.card:hover{border-color:#3b3f5a;}
 
-    .list{ margin-top:12px; display:flex; flex-direction:column; gap:10px; }
-    .noteItem{
-      border:1px solid var(--line);
-      background:#0d0f15;
-      border-radius: 16px;
-      padding:14px;
-      display:flex; justify-content:space-between; align-items:center; gap:12px;
-    }
-    .noteItem:hover{ border-color:#3b3b55; }
-    .noteMeta strong{ display:block; font-size:14px; }
-    .noteMeta .muted{ margin-top:4px; color:var(--muted); font-size:12px; }
-    .kebab{
-      width:38px; height:38px; border-radius: 12px;
-      border:1px solid var(--line);
-      background:#0b0d14;
-      color:var(--muted);
-      cursor:pointer;
-    }
+.hidden{display:none;}
 
-    /* Modal */
-    .modalOverlay{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,0.55);
-      display:none; align-items:center; justify-content:center;
-      padding:18px;
-      z-index:50;
-    }
-    .modal{
-      width:min(980px, 100%);
-      border:1px solid var(--line);
-      border-radius: 18px;
-      background: #0b0d14f2;
-      backdrop-filter: blur(12px);
-      padding:16px;
-    }
-    .modalTop{
-      display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;
-      margin-bottom:10px;
-    }
-    .modalTop input, .modalTop select{
-      width:100%;
-      border:1px solid var(--line);
-      background:#0d0f15;
-      color:var(--text);
-      padding:10px 12px;
-      border-radius: 12px;
-      outline:none;
-    }
-    .close{
-      border:1px solid var(--line);
-      background:#0d0f15;
-      color:var(--text);
-      padding:10px 12px;
-      border-radius: 12px;
-      cursor:pointer;
-    }
-    .editor{
-      width:100%;
-      min-height:320px;
-      border:1px solid var(--line);
-      background:#0d0f15;
-      color:var(--text);
-      padding:12px;
-      border-radius: 14px;
-      resize:vertical;
-      outline:none;
-    }
-    .modalRow{ display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; }
-    .hint{ color:var(--muted); font-size:12px; margin-top:10px; line-height:1.4; }
-    .two{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
-    @media (max-width: 780px){ .two{ grid-template-columns: 1fr; } }
+.modal{position:fixed;inset:0;background:#0008;display:none;align-items:center;justify-content:center;}
+.modalBox{background:#0a0c15;border:1px solid #1f2233;border-radius:16px;padding:16px;width:90%;max-width:700px;}
 
-    /* Flashcards */
-    .setGrid{ display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-top:12px; }
-    @media (max-width: 860px){ .setGrid{ grid-template-columns: 1fr; } }
-    .setCard{
-      border:1px solid var(--line);
-      background:#0d0f15;
-      border-radius:16px;
-      padding:14px;
-      display:flex; justify-content:space-between; gap:12px; align-items:flex-start;
-    }
-    .studyCard{
-      border:1px solid var(--line);
-      background:#0d0f15;
-      border-radius:18px;
-      padding:18px;
-      min-height:200px;
-      display:flex; align-items:center; justify-content:center;
-      text-align:center;
-      cursor:pointer;
-      user-select:none;
-    }
-    .pill{
-      display:inline-block;
-      padding:6px 10px;
-      border-radius: 999px;
-      border:1px solid var(--line);
-      color:var(--muted);
-      font-size:12px;
-      margin-right:8px;
-      margin-top:6px;
-    }
+textarea,input{width:100%;background:#0c0e18;border:1px solid #1f2233;border-radius:10px;padding:10px;color:white;outline:none;}
+button{font-weight:700;}
 
-    /* Toast */
-    .toast{
-      position:fixed; bottom:18px; right:18px;
-      background:#0d0f15; border:1px solid var(--line);
-      color:var(--text);
-      padding:10px 12px; border-radius:12px;
-      display:none;
-      z-index:60;
-      max-width: 340px;
-    }
-    .toast small{ color:var(--muted); }
-  </style>
+.toast{position:fixed;bottom:20px;right:20px;background:#0c0e18;border:1px solid #1f2233;border-radius:12px;padding:10px;display:none;}
+</style>
 </head>
 
 <body>
-  <div class="app">
-    <!-- Sidebar -->
-    <aside class="sidebar">
-      <div class="brand">
-        <div class="logo"></div>
-        <div>
-          <h1>Nuro AI</h1>
-          <div class="tag">Study Smarter. Level Faster.</div>
-        </div>
-      </div>
 
-      <div class="nav">
-        <button class="navbtn active" id="navDash" onclick="setPage('dashboard')"><span class="dot"></span> Dashboard</button>
-        <button class="navbtn" id="navFlash" onclick="setPage('flash')"><span class="dot"></span> Flashcards</button>
-        <button class="navbtn" id="navTests" onclick="setPage('tests')"><span class="dot"></span> Practice Tests</button>
-        <button class="navbtn" id="navGuides" onclick="setPage('guides')"><span class="dot"></span> Study Guides</button>
-        <button class="navbtn" id="navSettings" onclick="setPage('settings')"><span class="dot"></span> Settings</button>
-      </div>
+<div class="app">
 
-      <button class="upgrade" onclick="toast('Premium later','We’ll add pricing after core features are solid.')">✨ Upgrade to Premium</button>
+<aside class="sidebar">
+<div class="brand"><div class="logo"></div><div><b>Nuro AI</b><br><small>Study Smarter. Level Faster.</small></div></div>
 
-      <div class="profile">
-        <div class="avatar">N</div>
-        <div>
-          <div style="color:var(--text); font-weight:900;">nuro user</div>
-          <div>local mode</div>
-        </div>
-      </div>
-    </aside>
+<div class="nav">
+<button class="active" onclick="setPage('dash')" id="b_dash">Dashboard</button>
+<button onclick="setPage('flash')" id="b_flash">Flashcards</button>
+<button onclick="setPage('tests')" id="b_tests">Practice Tests</button>
+<button onclick="setPage('settings')" id="b_settings">Settings</button>
+</div>
 
-    <!-- Main -->
-    <main class="main">
-      <div class="topbar">
-        <div class="title">
-          <h2 id="pageTitle">Dashboard</h2>
-          <div class="sub" id="pageSub">Create new notes</div>
-        </div>
+<button class="upgrade" onclick="toast('Premium later')">✨ Upgrade to Premium</button>
+</aside>
 
-        <div class="search">
-          <input id="searchInput" placeholder="Search (Ctrl/⌘ + K)" oninput="renderNotes()" />
-          <div class="kbd">⌘ K</div>
-        </div>
-      </div>
+<main class="main">
 
-      <!-- DASHBOARD -->
-      <section id="page_dashboard" class="panel">
-        <div class="cards">
-          <div class="cardbtn" onclick="newBlankDoc()">
-            <div class="cardleft">
-              <div class="icon">📝</div>
-              <div>
-                <strong>Blank document</strong>
-                <span>Start from scratch</span>
-              </div>
-            </div>
-            <div class="arrow">›</div>
-          </div>
+<div class="topbar">
+<h1 id="title">Dashboard</h1>
+<div class="search"><input placeholder="Search"></div>
+</div>
 
-          <div class="cardbtn" onclick="openAudioModal()">
-            <div class="cardleft">
-              <div class="icon">🎙️</div>
-              <div>
-                <strong>Record or upload audio</strong>
-                <span>(placeholder for now)</span>
-              </div>
-            </div>
-            <div class="arrow">›</div>
-          </div>
+<section id="dash" class="panel">
+<div class="card" onclick="openNote()">📝 New Note</div>
+<div id="notes"></div>
+</section>
 
-          <div class="cardbtn" onclick="openUploadModal()">
-            <div class="cardleft">
-              <div class="icon">📄</div>
-              <div>
-                <strong>Document upload</strong>
-                <span>PDF, DOC, PPT (UI first)</span>
-              </div>
-            </div>
-            <div class="arrow">›</div>
-          </div>
+<section id="flash" class="panel hidden">
+<h2>Flashcards</h2>
+<div id="flashList"></div>
+</section>
 
-          <div class="cardbtn" onclick="openLinkModal()">
-            <div class="cardleft">
-              <div class="icon">🔗</div>
-              <div>
-                <strong>Website link</strong>
-                <span>YouTube or website link</span>
-              </div>
-            </div>
-            <div class="arrow">›</div>
-          </div>
-        </div>
+<section id="tests" class="panel hidden">
+<h2>Practice Tests</h2>
+<div id="testList"></div>
+</section>
 
-        <div class="notesHead">
-          <div class="tabs">
-            <button class="tab active" id="tabMy" onclick="setNotesTab('my')">My Notes</button>
-            <button class="tab" id="tabShared" onclick="setNotesTab('shared')">Shared with Me</button>
-          </div>
+<section id="settings" class="panel hidden">
+<h2>Settings</h2>
+<button onclick="localStorage.clear();location.reload()">Reset everything</button>
+</section>
 
-          <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <button class="ghost" onclick="newFolder()">📁 New Folder</button>
-            <button class="ghost" onclick="newBlankDoc()">＋ New Note</button>
-          </div>
-        </div>
+</main>
+</div>
 
-        <div class="list" id="notesList"></div>
-      </section>
+<!-- NOTE MODAL -->
+<div class="modal" id="noteModal">
+<div class="modalBox">
+<input id="noteTitle" placeholder="Title"><br><br>
+<textarea id="noteBody" rows="8" placeholder="Write notes..."></textarea><br><br>
+<button onclick="saveNote()">Save</button>
+<button onclick="closeNote()">Close</button>
+</div>
+</div>
 
-      <!-- FLASHCARDS -->
-      <section id="page_flash" class="panel" style="display:none;">
-        <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
-          <div>
-            <h3 style="margin:0 0 6px;">Flashcards</h3>
-            <div style="color:var(--muted); font-size:13px;">Create from notes or build manually (next).</div>
-          </div>
-          <button class="ghost" onclick="openImportModal()">✨ Create from Notes</button>
-        </div>
+<div class="toast" id="toast"></div>
 
-        <div id="flashRoot"></div>
-      </section>
+<script>
+let page="dash";
+let notes=JSON.parse(localStorage.getItem("nuro_notes")||"[]");
+let current=null;
 
-      <!-- PRACTICE TESTS -->
-      <section id="page_tests" class="panel" style="display:none;">
-        <h3 style="margin:0 0 6px;">Practice Tests</h3>
-        <div style="color:var(--muted); font-size:13px; line-height:1.4;">
-          Build tests you can customize. Next upgrade: real test-taking (timed + scored).
-        </div>
+function setPage(p){
+["dash","flash","tests","settings"].forEach(x=>{
+document.getElementById(x).classList.add("hidden");
+document.getElementById("b_"+x).classList.remove("active");
+});
+document.getElementById(p).classList.remove("hidden");
+document.getElementById("b_"+p).classList.add("active");
+document.getElementById("title").innerText=p.charAt(0).toUpperCase()+p.slice(1);
+}
 
-        <div class="two" style="margin-top:12px;">
-          <div>
-            <label style="color:var(--muted); font-size:13px;">Title</label>
-            <input id="testTitle" placeholder="e.g., Biology Practice Test #1" style="width:100%; border:1px solid var(--line); background:#0d0f15; color:var(--text); padding:10px 12px; border-radius:12px; outline:none;">
-          </div>
-          <div>
-            <label style="color:var(--muted); font-size:13px;">Subject</label>
-            <input id="testSubject" placeholder="e.g., Biology" style="width:100%; border:1px solid var(--line); background:#0d0f15; color:var(--text); padding:10px 12px; border-radius:12px; outline:none;">
-          </div>
-        </div>
+function render(){
+let box=document.getElementById("notes");
+box.innerHTML="";
+notes.forEach((n,i)=>{
+let d=document.createElement("div");
+d.className="card";
+d.innerText=n.title;
+d.onclick=()=>openNote(i);
+box.appendChild(d);
+});
+localStorage.setItem("nuro_notes",JSON.stringify(notes));
+}
 
-        <div class="two" style="margin-top:10px;">
-          <div>
-            <label style="color:var(--muted); font-size:13px;"># Questions</label>
-            <select id="testCount" style="width:100%; border:1px solid var(--line); background:#0d0f15; color:var(--text); padding:10px 12px; border-radius:12px; outline:none;">
-              <option>5</option><option>10</option><option selected>15</option><option>20</option><option>30</option>
-            </select>
-          </div>
-          <div>
-            <label style="color:var(--muted); font-size:13px;">Difficulty</label>
-            <select id="testDiff" style="width:100%; border:1px solid var(--line); background:#0d0f15; color:var(--text); padding:10px 12px; border-radius:12px; outline:none;">
-              <option>Easy</option><option selected>Medium</option><option>Hard</option>
-            </select>
-          </div>
-        </div>
+function openNote(i=null){
+document.getElementById("noteModal").style.display="flex";
+if(i!=null){
+current=i;
+noteTitle.value=notes[i].title;
+noteBody.value=notes[i].body;
+}else{
+current=null;
+noteTitle.value="";
+noteBody.value="";
+}
+}
 
-        <div style="margin-top:10px;">
-          <label style="color:var(--muted); font-size:13px;">Topics (comma separated)</label>
-          <input id="testTopics" placeholder="cells, mitosis, genetics" style="width:100%; border:1px solid var(--line); background:#0d0f15; color:var(--text); padding:10px 12px; border-radius:12px; outline:none;">
-        </div>
+function closeNote(){noteModal.style.display="none";}
 
-        <div class="modalRow">
-          <button class="primary" onclick="createTest()">Create Test</button>
-          <button class="ghost" onclick="toast('Next upgrade','Real test mode: timed + scored + weak topics.')">Coming next</button>
-        </div>
+function saveNote(){
+if(current==null){
+notes.push({title:noteTitle.value||"Untitled",body:noteBody.value});
+}else{
+notes[current].title=noteTitle.value;
+notes[current].body=noteBody.value;
+}
+render();
+toast("Saved");
+closeNote();
+}
 
-        <div class="list" id="testsList"></div>
-      </section>
+function toast(t){
+let x=document.getElementById("toast");
+x.innerText=t;
+x.style.display="block";
+setTimeout(()=>x.style.display="none",2000);
+}
 
-      <!-- GUIDES -->
-      <section id="page_guides" class="panel" style="display:none;">
-        <h3 style="margin:0 0 6px;">Study Guides</h3>
-        <div style="color:var(--muted); font-size:13px; line-height:1.4;">
-          Next we’ll add: exam checklists, topic roadmaps, and “weak-area” summaries.
-          <br><br>
-          For now your guides come from notes → flashcards/tests.
-        </div>
+render();
+</script>
 
-        <div style="margin-top:12px;">
-          <span class="pill">Paste notes → flashcards</span>
-          <span class="pill">Timed tests</span>
-          <span class="pill">Score + weak topics</span>
-          <span class="pill">Export/import sets</span>
-        </div>
-      </section>
-
-      <!-- SETTINGS -->
-      <section id="page_settings" class="panel" style="display:none;">
-        <h3 style="margin:0 0 6px;">Settings</h3>
-        <div style="color:var(--muted); font-size:13px; line-height:1.4;">
-          Local mode: everything saves in your browser.
-        </div>
-
-        <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-          <button class="ghost" onclick="exportAll()">⬇️ Export Data</button>
-          <button class="ghost" onclick="importAll()">⬆️ Import Data</button>
-          <button class="ghost" onclick="resetAll()">🗑️ Reset All</button>
-        </div>
-      </section>
-    </main>
-  </div>
-
-  <!-- NOTE EDITOR MODAL -->
-  <div class="modalOverlay" id="editorOverlay">
-    <div class="modal">
-      <div class="modalTop">
-        <div style="flex:1;">
-          <input id="noteTitle" placeholder="Note title..." />
-        </div>
-        <button class="close" onclick="closeEditor()">Close</button>
-      </div>
-
-      <textarea class="editor" id="noteBody" placeholder="Write your notes here..."></textarea>
-
-      <div class="modalRow">
-        <button class="primary" onclick="saveNote()">Save</button>
-        <button class="ghost" onclick="duplicateNote()">Duplicate</button>
-        <button class="ghost" onclick="deleteOpenNote()">Delete</button>
-        <button class="ghost" onclick="generateFlashcardsFromOpenNote()">✨ Generate Flashcards</button>
-      </div>
-
-      <div class="hint">
-        Tip: Click “Generate Flashcards” to auto-create a set from your note.
-      </div>
-    </div>
-  </div>
-
-  <!-- LINK MODAL -->
-  <div class="modalOverlay" id="linkOverlay">
-    <div class="modal">
-      <div class="modalTop">
-        <div style="flex:1; font-weight:900;">Add website link</div>
-        <button class="close" onclick="closeLinkModal()">Close</button>
-      </div>
-
-      <div class="two">
-        <div>
-          <label style="color:var(--muted); font-size:13px;">Title</label>
-          <input id="linkTitle" placeholder="e.g., Biology Crash Course" />
-        </div>
-        <div>
-          <label style="color:var(--muted); font-size:13px;">URL</label>
-          <input id="linkUrl" placeholder="https://..." />
-        </div>
-      </div>
-
-      <div class="modalRow">
-        <button class="primary" onclick="saveLink()">Save link</button>
-      </div>
-      <div class="hint">Links are saved to your “My Notes” list.</div>
-    </div>
-  </div>
-
-  <!-- UPLOAD MODAL (metadata only) -->
-  <div class="modalOverlay" id="uploadOverlay">
-    <div class="modal">
-      <div class="modalTop">
-        <div style="flex:1; font-weight:900;">Document upload (UI)</div>
-        <button class="close" onclick="closeUploadModal()">Close</button>
-      </div>
-
-      <div class="panel" style="background:#0d0f15; border-radius:16px;">
-        <div style="color:var(--muted); font-size:13px; line-height:1.4;">
-          For now this stores file name + type (local). Real PDF parsing comes later.
-        </div>
-        <div style="height:10px"></div>
-        <input type="file" id="docFile" />
-        <div class="modalRow">
-          <button class="primary" onclick="saveDocMeta()">Save document</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- AUDIO MODAL (metadata only) -->
-  <div class="modalOverlay" id="audioOverlay">
-    <div class="modal">
-      <div class="modalTop">
-        <div style="flex:1; font-weight:900;">Audio (placeholder)</div>
-        <button class="close" onclick="closeAudioModal()">Close</button>
-      </div>
-
-      <div class="panel" style="background:#0d0f15; border-radius:16px;">
-        <div style="color:var(--muted); font-size:13px; line-height:1.4;">
-          Later we add real recording + transcript. For now store the file metadata.
-        </div>
-        <div style="height:10px"></div>
-        <input type="file" id="audioFile" accept="audio/*" />
-        <div class="modalRow">
-          <button class="primary" onclick="saveAudioMeta()">Save audio</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- IMPORT MODAL: Create flashcards from pasted notes -->
-  <div class="modalOverlay" id="importOverlay">
-    <div class="modal">
-      <div class="modalTop">
-        <div style="flex:1; font-weight:950;">Create flashcards from notes</div>
-        <button class="close" onclick="closeImportModal()">Close</button>
-      </div>
-
-      <div class="two">
-        <div>
-          <label style="color:var(--muted); font-size:13px;">Set name</label>
-          <input id="impSetName" placeholder="e.g., Biology Unit 3" />
-        </div>
-        <div>
-          <label style="color:var(--muted); font-size:13px;">Subject</label>
-          <input id="impSubject" placeholder="e.g., Biology" />
-        </div>
-      </div>
-
-      <div class="two" style="margin-top:10px;">
-        <div>
-          <label style="color:var(--muted); font-size:13px;">Card style</label>
-          <select id="impStyle">
-            <option value="auto" selected>Auto (best guess)</option>
-            <option value="qa">Q&A (lines like "Q: ... A: ...")</option>
-            <option value="def">Definitions (Term - definition)</option>
-            <option value="bullets">Bullets (each bullet becomes a card)</option>
-          </select>
-        </div>
-        <div>
-          <label style="color:var(--muted); font-size:13px;">Max cards</label>
-          <select id="impMax">
-            <option>10</option><option selected>20</option><option>30</option><option>50</option>
-          </select>
-        </div>
-      </div>
-
-      <div style="margin-top:10px;">
-        <label style="color:var(--muted); font-size:13px;">Paste notes</label>
-        <textarea id="impText" class="editor" style="min-height:220px;" placeholder="Paste your notes here..."></textarea>
-      </div>
-
-      <div class="modalRow">
-        <button class="primary" onclick="importFlashcards()">Generate</button>
-        <button class="ghost" onclick="toast('Tip','Best results: use Term - definition or Q: / A: format.')">Help</button>
-      </div>
-
-      <div class="hint">
-        This uses smart rules (free). Later we can add AI generation.
-      </div>
-    </div>
-  </div>
-
-  <div class="toast" id="toast"></div>
-
-  <script>
-    // ----------------- STORAGE KEYS -----------------
-    const NOTES_KEY = "nuro_notes_v2";
-    const FLASH_KEY = "nuro_flash_v2";
-    const TESTS_KEY = "nuro_tests_v2";
-
-    // ----------------- STATE -----------------
-    let notesState = loadNotes();
-    let flashState = loadFlash();
-    let testsState = loadTests();
-
-    let page = "dashboard";
-    let openNoteId = null;
-
-    // ----------------- LOAD/SAVE -----------------
-    function loadNotes(){
-      const raw = localStorage.getItem(NOTES_KEY);
-      if(raw) return JSON.parse(raw);
-      return {
-        notesTab: "my",
-        notes: [
-          { id: nid(), type:"note", title:"Welcome to Nuro AI", updatedAt:Date.now()-86400000*2, body:"Paste notes here, then generate flashcards.\n\nExample formats:\n- Term - definition\n- Q: ...\\nA: ...\n- • bullet points" }
-        ]
-      };
-    }
-    function saveNotes(){ localStorage.setItem(NOTES_KEY, JSON.stringify(notesState)); }
-
-    function loadFlash(){
-      const raw = localStorage.getItem(FLASH_KEY);
-      if(raw) return JSON.parse(raw);
-      return { sets: [], study:{ setId:null, index:0, showBack:false } };
-    }
-    function saveFlash(){ localStorage.setItem(FLASH_KEY, JSON.stringify(flashState)); }
-
-    function loadTests(){
-      const raw = localStorage.getItem(TESTS_KEY);
-      if(raw) return JSON.parse(raw);
-      return { items: [] };
-    }
-    function saveTests(){ localStorage.setItem(TESTS_KEY, JSON.stringify(testsState)); }
-
-    function nid(){ return Math.random().toString(16).slice(2) + Date.now().toString(16); }
-
-    // ----------------- NAV -----------------
-    function setPage(next){
-      page = next;
-
-      document.getElementById("navDash").classList.toggle("active", next==="dashboard");
-      document.getElementById("navFlash").classList.toggle("active", next==="flash");
-      document.getElementById("navTests").classList.toggle("active", next==="tests");
-      document.getElementById("navGuides").classList.toggle("active", next==="guides");
-      document.getElementById("navSettings").classList.toggle("active", next==="settings");
-
-      show("page_dashboard", next==="dashboard");
-      show("page_flash", next==="flash");
-      show("page_tests", next==="tests");
-      show("page_guides", next==="guides");
-      show("page_settings", next==="settings");
-
-      const title = document
+</body>
+</html>
