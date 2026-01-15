@@ -5,19 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nuro AI</title>
   <style>
-    :root { --bg:#07070a; --card:#0f0f16; --text:#eaeaf2; --muted:#a7a7bd; }
+    :root { --bg:#07070a; --card:#0f0f16; --text:#eaeaf2; --muted:#a7a7bd; --line:#2a2a3a; }
     *{ box-sizing:border-box; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; }
     body{
-      margin:0; min-height:100vh; color:var(--text); background: radial-gradient(1200px 600px at 20% 20%, #4f46e533, transparent 60%),
-      radial-gradient(900px 500px at 80% 30%, #22d3ee22, transparent 55%),
-      radial-gradient(900px 500px at 70% 80%, #a855f722, transparent 55%),
-      var(--bg);
-      display:flex; align-items:center; justify-content:center; padding:24px;
+      margin:0; min-height:100vh; color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 20% 20%, #4f46e533, transparent 60%),
+        radial-gradient(900px 500px at 80% 30%, #22d3ee22, transparent 55%),
+        radial-gradient(900px 500px at 70% 80%, #a855f722, transparent 55%),
+        var(--bg);
+      padding:24px;
     }
-    .app{ width:min(980px,100%); }
+    .app{ width:min(1100px,100%); margin:0 auto; }
     .top{
       display:flex; gap:16px; align-items:center; justify-content:space-between; flex-wrap:wrap;
-      padding:18px 20px; border:1px solid #2a2a3a; border-radius:18px; background: #0b0b11cc; backdrop-filter: blur(10px);
+      padding:18px 20px; border:1px solid var(--line); border-radius:18px; background: #0b0b11cc; backdrop-filter: blur(10px);
     }
     .brand{ display:flex; gap:12px; align-items:center; }
     .logo{
@@ -27,35 +29,56 @@
     }
     h1{ margin:0; font-size:20px; letter-spacing:0.2px; }
     .tag{ margin:2px 0 0; color:var(--muted); font-size:13px; }
-    .btns{ display:flex; gap:10px; flex-wrap:wrap; }
-    button{
-      border:1px solid #2a2a3a; background:#12121b; color:var(--text);
+    .tabs{ display:flex; gap:10px; flex-wrap:wrap; }
+    .tab{
+      border:1px solid var(--line); background:#12121b; color:var(--text);
       padding:10px 12px; border-radius:12px; cursor:pointer;
     }
-    button:hover{ border-color:#3b3b55; }
+    .tab.active{ border-color:#3b3b55; box-shadow: 0 0 0 2px #3b3b5533 inset; }
     .grid{ margin-top:16px; display:grid; grid-template-columns: 1.2fr 0.8fr; gap:16px; }
-    @media (max-width: 860px){ .grid{ grid-template-columns:1fr; } }
+    @media (max-width: 900px){ .grid{ grid-template-columns:1fr; } }
     .card{
-      border:1px solid #2a2a3a; background: #0b0b11cc; border-radius:18px; padding:18px;
+      border:1px solid var(--line); background: #0b0b11cc; border-radius:18px; padding:18px;
     }
     .card h2{ margin:0 0 8px; font-size:16px; }
-    label{ display:block; margin-top:12px; margin-bottom:6px; color:var(--muted); font-size:13px; }
-    textarea{
-      width:100%; min-height:110px; resize:vertical;
-      border:1px solid #2a2a3a; background:#0f0f16; color:var(--text);
-      padding:12px; border-radius:14px;
+    .small{ color:var(--muted); font-size:13px; line-height:1.4; }
+    .row{ display:flex; gap:10px; flex-wrap:wrap; }
+    input, select, textarea{
+      width:100%;
+      border:1px solid var(--line); background:#0f0f16; color:var(--text);
+      padding:10px 12px; border-radius:14px;
     }
-    .run{
+    textarea{ min-height:90px; resize:vertical; }
+    label{ display:block; margin-top:12px; margin-bottom:6px; color:var(--muted); font-size:13px; }
+    button.primary{
       margin-top:12px; width:100%;
       background: linear-gradient(135deg, #4f46e5, #22d3ee, #a855f7);
-      border:none; color:#0b0b11; font-weight:700;
+      border:none; color:#0b0b11; font-weight:800;
+      padding:11px 12px; border-radius:14px; cursor:pointer;
     }
-    .out{
-      margin-top:12px; padding:12px; border-radius:14px; border:1px dashed #2a2a3a; color:var(--muted);
-      white-space:pre-wrap;
+    button.ghost{
+      border:1px solid var(--line); background:#12121b; color:var(--text);
+      padding:10px 12px; border-radius:12px; cursor:pointer;
     }
-    .small{ color:var(--muted); font-size:13px; line-height:1.4; }
-    .pill{ display:inline-block; padding:6px 10px; border-radius:999px; border:1px solid #2a2a3a; color:var(--muted); font-size:12px; margin-right:8px; }
+    .pill{ display:inline-block; padding:6px 10px; border-radius:999px; border:1px solid var(--line); color:var(--muted); font-size:12px; margin-right:8px; }
+    .list{ margin-top:10px; display:flex; flex-direction:column; gap:10px; }
+    .item{
+      border:1px solid var(--line); background:#0f0f16; border-radius:14px; padding:12px;
+      display:flex; justify-content:space-between; gap:10px; align-items:flex-start;
+    }
+    .item strong{ display:block; margin-bottom:2px; }
+    .muted{ color:var(--muted); font-size:12px; }
+    .split{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    @media (max-width: 520px){ .split{ grid-template-columns:1fr; } }
+    .studyCard{
+      border:1px solid var(--line); background:#0f0f16; border-radius:18px; padding:16px;
+      min-height:160px; display:flex; flex-direction:column; justify-content:center; text-align:center;
+      cursor:pointer;
+    }
+    .studyCard .face{ font-size:16px; }
+    .studyCard .hint{ color:var(--muted); font-size:12px; margin-top:8px; }
+    .kpi{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; }
+    .kpi .box{ border:1px solid var(--line); background:#0f0f16; border-radius:14px; padding:12px; }
   </style>
 </head>
 
@@ -70,92 +93,521 @@
         </div>
       </div>
 
-      <div class="btns">
-        <button onclick="switchMode('homework')">Homework Check</button>
-        <button onclick="switchMode('practice')">Practice Mode</button>
-        <button onclick="switchMode('dashboard')">Dashboard</button>
+      <div class="tabs">
+        <button class="tab active" id="tabFlash" onclick="switchTab('flash')">Flashcards</button>
+        <button class="tab" id="tabTest" onclick="switchTab('test')">Practice Tests</button>
+        <button class="tab" id="tabDash" onclick="switchTab('dash')">Dashboard</button>
       </div>
     </div>
 
     <div class="grid">
-      <div class="card" id="mainCard">
-        <h2 id="modeTitle">Homework Check</h2>
-
-        <label>Question</label>
-        <textarea id="question" placeholder="Paste the question here..."></textarea>
-
-        <label>Your Answer</label>
-        <textarea id="answer" placeholder="Paste your answer here..."></textarea>
-
-        <button class="run" onclick="coach()">Get Coach Feedback</button>
-
-        <div class="out" id="output">Tip: This MVP gives structured feedback. Next we’ll add real AI + streak tracking.</div>
-      </div>
+      <div class="card" id="mainCard"></div>
 
       <div class="card">
-        <h2>How Nuro helps</h2>
+        <h2>What you’re building</h2>
         <div class="small">
-          <span class="pill">✅ What’s correct</span>
-          <span class="pill">❌ What to fix</span>
-          <span class="pill">🧠 Next step</span>
-          <span class="pill">⭐ Practice</span>
+          <span class="pill">🧠 Flashcards</span>
+          <span class="pill">📝 Practice Tests</span>
+          <span class="pill">📊 Progress</span>
           <br><br>
-          This is the starter version. Once the site loads, we’ll:
+          This version saves everything <b>in your browser</b> (no account needed).
           <ul>
-            <li>save attempts (local storage)</li>
-            <li>add streak + weak areas</li>
-            <li>add AI feedback (when you’re ready)</li>
+            <li>Create flashcard sets and study them</li>
+            <li>Build custom practice tests</li>
+            <li>Track study sessions + streak</li>
           </ul>
+          <div class="small">
+            Next upgrade: shareable links + AI-generated questions (optional).
+          </div>
         </div>
       </div>
     </div>
   </div>
 
   <script>
-    let mode = "homework";
+    // ---------- Storage ----------
+    const KEY = "nuro_data_v1";
+    const todayKey = () => new Date().toISOString().slice(0,10);
 
-    function switchMode(next){
-      mode = next;
-      const title = document.getElementById("modeTitle");
-      const output = document.getElementById("output");
+    function loadData(){
+      const raw = localStorage.getItem(KEY);
+      if(raw) return JSON.parse(raw);
+      return {
+        streak: { lastDay: null, count: 0 },
+        sessions: [],
+        flash: { sets: [] }, // each set: {id, name, subject, tags, cards:[{front,back,known,missed}]}
+        tests: { items: [] }  // each test: {id, title, subject, topics, qCount, types, difficulty, createdAt}
+      };
+    }
+    function saveData(d){ localStorage.setItem(KEY, JSON.stringify(d)); }
 
-      if(next === "homework"){
-        title.textContent = "Homework Check";
-        output.textContent = "Paste a question + your answer, then click Get Coach Feedback.";
-      } else if(next === "practice"){
-        title.textContent = "Practice Mode";
-        output.textContent = "Next: we’ll generate quick practice questions + track streaks.";
-      } else {
-        title.textContent = "Dashboard";
-        output.textContent = "Next: we’ll show your streak, weak topics, and recent attempts.";
-      }
+    function newId(){ return Math.random().toString(16).slice(2) + Date.now().toString(16); }
+
+    function bumpStreak(d){
+      const t = todayKey();
+      if(d.streak.lastDay === t) return; // already counted today
+      // if yesterday, increment; else reset to 1
+      const last = d.streak.lastDay ? new Date(d.streak.lastDay) : null;
+      const now = new Date(t);
+      const diffDays = last ? Math.round((now - last) / (1000*60*60*24)) : null;
+
+      if(diffDays === 1) d.streak.count += 1;
+      else d.streak.count = 1;
+
+      d.streak.lastDay = t;
     }
 
-    function coach(){
-      const q = document.getElementById("question").value.trim();
-      const a = document.getElementById("answer").value.trim();
-      const out = document.getElementById("output");
+    function logSession(d, type, detail){
+      bumpStreak(d);
+      d.sessions.unshift({ at: Date.now(), type, detail });
+      d.sessions = d.sessions.slice(0, 50);
+    }
 
-      if(!q || !a){
-        out.textContent = "Fill in both the Question and Your Answer first.";
-        return;
+    // ---------- UI ----------
+    let tab = "flash";
+    let data = loadData();
+
+    let currentSetId = null;
+    let study = { setId:null, index:0, showingBack:false };
+
+    function switchTab(next){
+      tab = next;
+      document.getElementById("tabFlash").classList.toggle("active", next==="flash");
+      document.getElementById("tabTest").classList.toggle("active", next==="test");
+      document.getElementById("tabDash").classList.toggle("active", next==="dash");
+      render();
+    }
+
+    function render(){
+      const main = document.getElementById("mainCard");
+      if(tab === "flash") main.innerHTML = renderFlashcards();
+      if(tab === "test") main.innerHTML = renderTests();
+      if(tab === "dash") main.innerHTML = renderDashboard();
+      attachHandlers();
+    }
+
+    // ---------- Flashcards ----------
+    function renderFlashcards(){
+      const sets = data.flash.sets;
+      const activeSet = sets.find(s => s.id === currentSetId) || null;
+
+      if(!activeSet){
+        return `
+          <h2>Flashcards</h2>
+          <div class="small">Create sets like “Bio Unit 3” or “French Vocab”.</div>
+
+          <label>Set name</label>
+          <input id="setName" placeholder="e.g., Biology Unit 3" />
+
+          <div class="split">
+            <div>
+              <label>Subject</label>
+              <input id="setSubject" placeholder="e.g., Biology" />
+            </div>
+            <div>
+              <label>Tags (comma separated)</label>
+              <input id="setTags" placeholder="cells, mitosis, vocab" />
+            </div>
+          </div>
+
+          <button class="primary" id="createSetBtn">Create Set</button>
+
+          <div style="height:14px"></div>
+          <h2>Your sets</h2>
+          <div class="list">
+            ${sets.length ? sets.map(s => `
+              <div class="item">
+                <div>
+                  <strong>${escapeHtml(s.name)}</strong>
+                  <div class="muted">${escapeHtml(s.subject || "No subject")} • ${s.cards.length} cards</div>
+                </div>
+                <div class="row">
+                  <button class="ghost openSetBtn" data-id="${s.id}">Open</button>
+                  <button class="ghost studySetBtn" data-id="${s.id}">Study</button>
+                  <button class="ghost deleteSetBtn" data-id="${s.id}">Delete</button>
+                </div>
+              </div>
+            `).join("") : `<div class="small">No sets yet. Make your first one above.</div>`}
+          </div>
+        `;
       }
 
-      // MVP “coach feedback” (placeholder logic)
-      out.textContent =
-`✅ What you did right:
-- You attempted the problem and provided an answer.
+      // Active set view
+      return `
+        <div class="row" style="justify-content:space-between; align-items:center;">
+          <div>
+            <h2>${escapeHtml(activeSet.name)}</h2>
+            <div class="muted">${escapeHtml(activeSet.subject || "No subject")} • ${activeSet.cards.length} cards</div>
+          </div>
+          <div class="row">
+            <button class="ghost" id="backToSets">Back</button>
+            <button class="ghost" id="studyThisSet">Study</button>
+          </div>
+        </div>
 
-❌ What to improve:
-- Show your steps (even 1–2 lines helps).
-- Label units / define variables.
+        <label>Front</label>
+        <textarea id="cardFront" placeholder="e.g., What is mitosis?"></textarea>
 
-🧠 Next step:
-- Rewrite your solution with clear steps.
+        <label>Back</label>
+        <textarea id="cardBack" placeholder="e.g., A process where a cell divides into two identical daughter cells..."></textarea>
 
-⭐ Similar practice:
-- Try the same question but change one number and solve again.`;
+        <button class="primary" id="addCardBtn">Add Flashcard</button>
+
+        <div style="height:14px"></div>
+        <h2>Cards</h2>
+        <div class="list">
+          ${activeSet.cards.length ? activeSet.cards.map((c, idx)=>`
+            <div class="item">
+              <div>
+                <strong>${escapeHtml(c.front).slice(0,80)}${c.front.length>80?"…":""}</strong>
+                <div class="muted">${escapeHtml(c.back).slice(0,90)}${c.back.length>90?"…":""}</div>
+              </div>
+              <div class="row">
+                <button class="ghost deleteCardBtn" data-idx="${idx}">Delete</button>
+              </div>
+            </div>
+          `).join("") : `<div class="small">No cards yet. Add your first card above.</div>`}
+        </div>
+      `;
     }
+
+    function createSet(){
+      const name = val("setName");
+      const subject = val("setSubject");
+      const tags = val("setTags");
+      if(!name){ alert("Set name is required."); return; }
+
+      const set = { id:newId(), name, subject, tags, cards:[] };
+      data.flash.sets.unshift(set);
+      logSession(data, "flash_set_created", { name });
+      saveData(data);
+      render();
+    }
+
+    function openSet(id){ currentSetId = id; render(); }
+
+    function deleteSet(id){
+      if(!confirm("Delete this set?")) return;
+      data.flash.sets = data.flash.sets.filter(s => s.id !== id);
+      if(currentSetId === id) currentSetId = null;
+      saveData(data);
+      render();
+    }
+
+    function addCard(){
+      const set = data.flash.sets.find(s => s.id === currentSetId);
+      if(!set) return;
+      const front = val("cardFront");
+      const back = val("cardBack");
+      if(!front || !back){ alert("Front and Back are required."); return; }
+
+      set.cards.unshift({ front, back, known:0, missed:0 });
+      logSession(data, "flash_card_added", { set: set.name });
+      saveData(data);
+      render();
+    }
+
+    function deleteCard(idx){
+      const set = data.flash.sets.find(s => s.id === currentSetId);
+      if(!set) return;
+      set.cards.splice(idx,1);
+      saveData(data);
+      render();
+    }
+
+    function startStudy(setId){
+      const set = data.flash.sets.find(s => s.id === setId);
+      if(!set || set.cards.length === 0){ alert("This set has no cards."); return; }
+      study = { setId, index:0, showingBack:false };
+      tab = "flash";
+      document.getElementById("tabFlash").classList.add("active");
+      document.getElementById("tabTest").classList.remove("active");
+      document.getElementById("tabDash").classList.remove("active");
+      document.getElementById("mainCard").innerHTML = renderStudy(set);
+      attachHandlers();
+    }
+
+    function renderStudy(set){
+      const c = set.cards[study.index];
+      const face = study.showingBack ? c.back : c.front;
+      const progress = `${study.index+1} / ${set.cards.length}`;
+      return `
+        <div class="row" style="justify-content:space-between; align-items:center;">
+          <div>
+            <h2>Study: ${escapeHtml(set.name)}</h2>
+            <div class="muted">${progress} • click card to flip</div>
+          </div>
+          <div class="row">
+            <button class="ghost" id="exitStudy">Exit</button>
+            <button class="ghost" id="shuffleStudy">Shuffle</button>
+          </div>
+        </div>
+
+        <div class="studyCard" id="flipCard">
+          <div class="face">${escapeHtml(face)}</div>
+          <div class="hint">${study.showingBack ? "Back" : "Front"}</div>
+        </div>
+
+        <div class="row" style="margin-top:12px;">
+          <button class="ghost" id="missBtn" style="flex:1;">I missed it</button>
+          <button class="ghost" id="knowBtn" style="flex:1;">I knew it</button>
+        </div>
+
+        <div class="small" style="margin-top:10px;">
+          Tip: this tracks known/missed per card (saved locally).
+        </div>
+      `;
+    }
+
+    function flip(){
+      study.showingBack = !study.showingBack;
+      const set = data.flash.sets.find(s => s.id === study.setId);
+      document.getElementById("mainCard").innerHTML = renderStudy(set);
+      attachHandlers();
+    }
+
+    function markCard(type){
+      const set = data.flash.sets.find(s => s.id === study.setId);
+      const c = set.cards[study.index];
+      if(type === "know") c.known += 1;
+      if(type === "miss") c.missed += 1;
+
+      logSession(data, "flash_study", { set:set.name, result:type });
+      saveData(data);
+
+      // next card
+      study.index = (study.index + 1) % set.cards.length;
+      study.showingBack = false;
+      document.getElementById("mainCard").innerHTML = renderStudy(set);
+      attachHandlers();
+    }
+
+    function shuffleStudy(){
+      const set = data.flash.sets.find(s => s.id === study.setId);
+      set.cards.sort(() => Math.random() - 0.5);
+      saveData(data);
+      study.index = 0;
+      study.showingBack = false;
+      document.getElementById("mainCard").innerHTML = renderStudy(set);
+      attachHandlers();
+    }
+
+    // ---------- Practice Tests ----------
+    function renderTests(){
+      return `
+        <h2>Practice Tests</h2>
+        <div class="small">Build a custom test template. Next upgrade can auto-generate questions.</div>
+
+        <label>Test title</label>
+        <input id="testTitle" placeholder="e.g., Chemistry Midterm Practice #1" />
+
+        <div class="split">
+          <div>
+            <label>Subject</label>
+            <input id="testSubject" placeholder="e.g., Chemistry" />
+          </div>
+          <div>
+            <label>Difficulty</label>
+            <select id="testDiff">
+              <option>Easy</option>
+              <option selected>Medium</option>
+              <option>Hard</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="split">
+          <div>
+            <label># of Questions</label>
+            <select id="testCount">
+              <option>5</option><option>10</option><option selected>15</option><option>20</option><option>30</option>
+            </select>
+          </div>
+          <div>
+            <label>Question types</label>
+            <select id="testTypes">
+              <option selected>Mixed (MCQ + Short)</option>
+              <option>MCQ only</option>
+              <option>Short answer only</option>
+            </select>
+          </div>
+        </div>
+
+        <label>Topics (comma separated)</label>
+        <input id="testTopics" placeholder="stoichiometry, periodic table, bonds" />
+
+        <button class="primary" id="createTestBtn">Create Test</button>
+
+        <div style="height:14px"></div>
+        <h2>Your tests</h2>
+        <div class="list">
+          ${data.tests.items.length ? data.tests.items.map(t => `
+            <div class="item">
+              <div>
+                <strong>${escapeHtml(t.title)}</strong>
+                <div class="muted">${escapeHtml(t.subject || "No subject")} • ${t.qCount} Q • ${escapeHtml(t.difficulty)} • ${escapeHtml(t.types)}</div>
+                <div class="muted">${escapeHtml(t.topics || "")}</div>
+              </div>
+              <div class="row">
+                <button class="ghost openTestBtn" data-id="${t.id}">Open</button>
+                <button class="ghost deleteTestBtn" data-id="${t.id}">Delete</button>
+              </div>
+            </div>
+          `).join("") : `<div class="small">No tests yet. Build your first one above.</div>`}
+        </div>
+
+        <div id="testViewer"></div>
+      `;
+    }
+
+    function createTest(){
+      const title = val("testTitle");
+      const subject = val("testSubject");
+      const difficulty = val("testDiff");
+      const qCount = parseInt(val("testCount"), 10);
+      const types = val("testTypes");
+      const topics = val("testTopics");
+
+      if(!title){ alert("Test title is required."); return; }
+
+      const test = { id:newId(), title, subject, difficulty, qCount, types, topics, createdAt: Date.now() };
+      data.tests.items.unshift(test);
+      logSession(data, "test_created", { title });
+      saveData(data);
+      render();
+    }
+
+    function deleteTest(id){
+      if(!confirm("Delete this test?")) return;
+      data.tests.items = data.tests.items.filter(t => t.id !== id);
+      saveData(data);
+      render();
+    }
+
+    function openTest(id){
+      const test = data.tests.items.find(t => t.id === id);
+      const viewer = document.getElementById("testViewer");
+      if(!test || !viewer) return;
+
+      // Build a blank test sheet template
+      const lines = Array.from({length: test.qCount}).map((_,i)=>`
+        <div class="item" style="flex-direction:column; align-items:stretch;">
+          <strong>Q${i+1} (${escapeHtml(test.types)})</strong>
+          <div class="muted">Topic: ${escapeHtml(test.topics || "—")}</div>
+          <textarea placeholder="Write the question here (or later we can auto-generate)."></textarea>
+          <textarea placeholder="Write your answer here."></textarea>
+        </div>
+      `).join("");
+
+      viewer.innerHTML = `
+        <div style="height:16px"></div>
+        <h2>Open Test: ${escapeHtml(test.title)}</h2>
+        <div class="small">This is a printable practice test template.</div>
+        <div class="list">${lines}</div>
+      `;
+
+      logSession(data, "test_opened", { title: test.title });
+      saveData(data);
+    }
+
+    // ---------- Dashboard ----------
+    function renderDashboard(){
+      const streak = data.streak.count || 0;
+      const sets = data.flash.sets.length;
+      const cards = data.flash.sets.reduce((sum,s)=>sum + s.cards.length, 0);
+      const tests = data.tests.items.length;
+
+      const recent = data.sessions.slice(0,8).map(s=>{
+        const when = new Date(s.at).toLocaleString();
+        return `<div class="item"><div><strong>${escapeHtml(s.type)}</strong><div class="muted">${when}</div></div></div>`;
+      }).join("");
+
+      return `
+        <h2>Dashboard</h2>
+        <div class="small">Progress is saved locally on this device.</div>
+
+        <div class="kpi">
+          <div class="box"><strong>🔥 Streak</strong><div class="muted">${streak} day(s)</div></div>
+          <div class="box"><strong>📚 Flashcards</strong><div class="muted">${sets} sets • ${cards} cards</div></div>
+          <div class="box"><strong>📝 Tests</strong><div class="muted">${tests} created</div></div>
+          <div class="box"><strong>📅 Last active</strong><div class="muted">${data.streak.lastDay || "—"}</div></div>
+        </div>
+
+        <div style="height:14px"></div>
+        <h2>Recent activity</h2>
+        <div class="list">
+          ${recent || `<div class="small">No activity yet. Create a set or a test.</div>`}
+        </div>
+
+        <div style="height:14px"></div>
+        <button class="ghost" id="resetBtn">Reset all data</button>
+      `;
+    }
+
+    function resetAll(){
+      if(!confirm("This will delete your saved sets/tests/stats on this device. Continue?")) return;
+      localStorage.removeItem(KEY);
+      data = loadData();
+      currentSetId = null;
+      render();
+    }
+
+    // ---------- Helpers ----------
+    function val(id){ return (document.getElementById(id)?.value || "").trim(); }
+    function escapeHtml(str){
+      return String(str).replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
+    }
+
+    function attachHandlers(){
+      // Flash tab
+      const createSetBtn = document.getElementById("createSetBtn");
+      if(createSetBtn) createSetBtn.onclick = createSet;
+
+      document.querySelectorAll(".openSetBtn").forEach(b => b.onclick = () => openSet(b.dataset.id));
+      document.querySelectorAll(".studySetBtn").forEach(b => b.onclick = () => startStudy(b.dataset.id));
+      document.querySelectorAll(".deleteSetBtn").forEach(b => b.onclick = () => deleteSet(b.dataset.id));
+
+      const backToSets = document.getElementById("backToSets");
+      if(backToSets) backToSets.onclick = () => { currentSetId = null; render(); };
+
+      const studyThisSet = document.getElementById("studyThisSet");
+      if(studyThisSet) studyThisSet.onclick = () => startStudy(currentSetId);
+
+      const addCardBtn = document.getElementById("addCardBtn");
+      if(addCardBtn) addCardBtn.onclick = addCard;
+
+      document.querySelectorAll(".deleteCardBtn").forEach(b => b.onclick = () => deleteCard(parseInt(b.dataset.idx,10)));
+
+      // Study mode
+      const flipCard = document.getElementById("flipCard");
+      if(flipCard) flipCard.onclick = flip;
+
+      const exitStudy = document.getElementById("exitStudy");
+      if(exitStudy) exitStudy.onclick = () => { currentSetId = study.setId; study = {setId:null,index:0,showingBack:false}; render(); };
+
+      const shuffleBtn = document.getElementById("shuffleStudy");
+      if(shuffleBtn) shuffleBtn.onclick = shuffleStudy;
+
+      const missBtn = document.getElementById("missBtn");
+      if(missBtn) missBtn.onclick = () => markCard("miss");
+
+      const knowBtn = document.getElementById("knowBtn");
+      if(knowBtn) knowBtn.onclick = () => markCard("know");
+
+      // Tests
+      const createTestBtn = document.getElementById("createTestBtn");
+      if(createTestBtn) createTestBtn.onclick = createTest;
+
+      document.querySelectorAll(".deleteTestBtn").forEach(b => b.onclick = () => deleteTest(b.dataset.id));
+      document.querySelectorAll(".openTestBtn").forEach(b => b.onclick = () => openTest(b.dataset.id));
+
+      // Dashboard
+      const resetBtn = document.getElementById("resetBtn");
+      if(resetBtn) resetBtn.onclick = resetAll;
+    }
+
+    // Boot
+    render();
   </script>
 </body>
 </html>
