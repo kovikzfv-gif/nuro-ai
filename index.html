@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nuro AI</title>
+  <style>
+    :root { --bg:#07070a; --card:#0f0f16; --text:#eaeaf2; --muted:#a7a7bd; }
+    *{ box-sizing:border-box; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+    body{
+      margin:0; min-height:100vh; color:var(--text); background: radial-gradient(1200px 600px at 20% 20%, #4f46e533, transparent 60%),
+      radial-gradient(900px 500px at 80% 30%, #22d3ee22, transparent 55%),
+      radial-gradient(900px 500px at 70% 80%, #a855f722, transparent 55%),
+      var(--bg);
+      display:flex; align-items:center; justify-content:center; padding:24px;
+    }
+    .app{ width:min(980px,100%); }
+    .top{
+      display:flex; gap:16px; align-items:center; justify-content:space-between; flex-wrap:wrap;
+      padding:18px 20px; border:1px solid #2a2a3a; border-radius:18px; background: #0b0b11cc; backdrop-filter: blur(10px);
+    }
+    .brand{ display:flex; gap:12px; align-items:center; }
+    .logo{
+      width:42px; height:42px; border-radius:12px;
+      background: linear-gradient(135deg, #4f46e5, #22d3ee, #a855f7);
+      box-shadow: 0 0 24px #4f46e533;
+    }
+    h1{ margin:0; font-size:20px; letter-spacing:0.2px; }
+    .tag{ margin:2px 0 0; color:var(--muted); font-size:13px; }
+    .btns{ display:flex; gap:10px; flex-wrap:wrap; }
+    button{
+      border:1px solid #2a2a3a; background:#12121b; color:var(--text);
+      padding:10px 12px; border-radius:12px; cursor:pointer;
+    }
+    button:hover{ border-color:#3b3b55; }
+    .grid{ margin-top:16px; display:grid; grid-template-columns: 1.2fr 0.8fr; gap:16px; }
+    @media (max-width: 860px){ .grid{ grid-template-columns:1fr; } }
+    .card{
+      border:1px solid #2a2a3a; background: #0b0b11cc; border-radius:18px; padding:18px;
+    }
+    .card h2{ margin:0 0 8px; font-size:16px; }
+    label{ display:block; margin-top:12px; margin-bottom:6px; color:var(--muted); font-size:13px; }
+    textarea{
+      width:100%; min-height:110px; resize:vertical;
+      border:1px solid #2a2a3a; background:#0f0f16; color:var(--text);
+      padding:12px; border-radius:14px;
+    }
+    .run{
+      margin-top:12px; width:100%;
+      background: linear-gradient(135deg, #4f46e5, #22d3ee, #a855f7);
+      border:none; color:#0b0b11; font-weight:700;
+    }
+    .out{
+      margin-top:12px; padding:12px; border-radius:14px; border:1px dashed #2a2a3a; color:var(--muted);
+      white-space:pre-wrap;
+    }
+    .small{ color:var(--muted); font-size:13px; line-height:1.4; }
+    .pill{ display:inline-block; padding:6px 10px; border-radius:999px; border:1px solid #2a2a3a; color:var(--muted); font-size:12px; margin-right:8px; }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <div class="top">
+      <div class="brand">
+        <div class="logo"></div>
+        <div>
+          <h1>Nuro AI</h1>
+          <div class="tag">Study Smarter. Level Faster.</div>
+        </div>
+      </div>
+
+      <div class="btns">
+        <button onclick="switchMode('homework')">Homework Check</button>
+        <button onclick="switchMode('practice')">Practice Mode</button>
+        <button onclick="switchMode('dashboard')">Dashboard</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card" id="mainCard">
+        <h2 id="modeTitle">Homework Check</h2>
+
+        <label>Question</label>
+        <textarea id="question" placeholder="Paste the question here..."></textarea>
+
+        <label>Your Answer</label>
+        <textarea id="answer" placeholder="Paste your answer here..."></textarea>
+
+        <button class="run" onclick="coach()">Get Coach Feedback</button>
+
+        <div class="out" id="output">Tip: This MVP gives structured feedback. Next we’ll add real AI + streak tracking.</div>
+      </div>
+
+      <div class="card">
+        <h2>How Nuro helps</h2>
+        <div class="small">
+          <span class="pill">✅ What’s correct</span>
+          <span class="pill">❌ What to fix</span>
+          <span class="pill">🧠 Next step</span>
+          <span class="pill">⭐ Practice</span>
+          <br><br>
+          This is the starter version. Once the site loads, we’ll:
+          <ul>
+            <li>save attempts (local storage)</li>
+            <li>add streak + weak areas</li>
+            <li>add AI feedback (when you’re ready)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let mode = "homework";
+
+    function switchMode(next){
+      mode = next;
+      const title = document.getElementById("modeTitle");
+      const output = document.getElementById("output");
+
+      if(next === "homework"){
+        title.textContent = "Homework Check";
+        output.textContent = "Paste a question + your answer, then click Get Coach Feedback.";
+      } else if(next === "practice"){
+        title.textContent = "Practice Mode";
+        output.textContent = "Next: we’ll generate quick practice questions + track streaks.";
+      } else {
+        title.textContent = "Dashboard";
+        output.textContent = "Next: we’ll show your streak, weak topics, and recent attempts.";
+      }
+    }
+
+    function coach(){
+      const q = document.getElementById("question").value.trim();
+      const a = document.getElementById("answer").value.trim();
+      const out = document.getElementById("output");
+
+      if(!q || !a){
+        out.textContent = "Fill in both the Question and Your Answer first.";
+        return;
+      }
+
+      // MVP “coach feedback” (placeholder logic)
+      out.textContent =
+`✅ What you did right:
+- You attempted the problem and provided an answer.
+
+❌ What to improve:
+- Show your steps (even 1–2 lines helps).
+- Label units / define variables.
+
+🧠 Next step:
+- Rewrite your solution with clear steps.
+
+⭐ Similar practice:
+- Try the same question but change one number and solve again.`;
+    }
+  </script>
+</body>
+</html>
