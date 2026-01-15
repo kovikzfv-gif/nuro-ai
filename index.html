@@ -262,7 +262,6 @@
       padding:14px;
       display:flex; justify-content:space-between; gap:12px; align-items:flex-start;
     }
-
     .studyCard{
       border:1px solid var(--line);
       background:#0d0f15;
@@ -293,23 +292,12 @@
       white-space:pre-wrap;
     }
 
-    .pill{
-      display:inline-block;
-      padding:6px 10px;
-      border-radius: 999px;
-      border:1px solid var(--line);
-      color:var(--muted);
-      font-size:12px;
-      margin-right:8px;
-      margin-top:6px;
-    }
-
     .toast{
       position:fixed; bottom:18px; right:18px;
       background:#0d0f15; border:1px solid var(--line);
       color:var(--text);
       padding:10px 12px; border-radius:12px;
-      display:none; z-index:60; max-width: 360px;
+      display:none; z-index:60; max-width: 420px;
     }
     .toast small{ color:var(--muted); }
   </style>
@@ -358,7 +346,6 @@
         </div>
       </div>
 
-      <!-- DASHBOARD -->
       <section id="page_dashboard" class="panel">
         <div class="cards">
           <div class="cardbtn" onclick="newBlankDoc()">
@@ -376,8 +363,8 @@
             <div class="cardleft">
               <div class="icon">🎙️</div>
               <div>
-                <strong>Record or upload audio</strong>
-                <span>(placeholder for now)</span>
+                <strong>Audio upload</strong>
+                <span>(placeholder)</span>
               </div>
             </div>
             <div class="arrow">›</div>
@@ -388,7 +375,7 @@
               <div class="icon">📄</div>
               <div>
                 <strong>Document upload</strong>
-                <span>PDF, DOC, PPT (UI first)</span>
+                <span>(UI first)</span>
               </div>
             </div>
             <div class="arrow">›</div>
@@ -399,7 +386,7 @@
               <div class="icon">🔗</div>
               <div>
                 <strong>Website link</strong>
-                <span>YouTube or website link</span>
+                <span>YouTube or website</span>
               </div>
             </div>
             <div class="arrow">›</div>
@@ -413,7 +400,6 @@
           </div>
 
           <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <button class="ghost" onclick="toast('Folders later','Customization comes later — core first.')">📁 New Folder</button>
             <button class="ghost" onclick="newBlankDoc()">＋ New Note</button>
           </div>
         </div>
@@ -421,84 +407,30 @@
         <div class="list" id="notesList"></div>
       </section>
 
-      <!-- FLASHCARDS -->
       <section id="page_flash" class="panel" style="display:none;">
         <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
           <div>
             <h3 style="margin:0 0 6px;">Flashcards</h3>
-            <div style="color:var(--muted); font-size:13px;">Flip cards to see the explanation (back).</div>
+            <div style="color:var(--muted); font-size:13px;">Now splits paragraphs into many cards.</div>
           </div>
           <button class="ghost" onclick="openModal('import')">✨ Create from Notes</button>
         </div>
         <div id="flashRoot"></div>
       </section>
 
-      <!-- PRACTICE TESTS -->
       <section id="page_tests" class="panel" style="display:none;">
         <h3 style="margin:0 0 6px;">Practice Tests</h3>
-        <div style="color:var(--muted); font-size:13px; line-height:1.4;">
-          Build tests you can customize. (Real test-taking next)
-        </div>
-
-        <div class="row" style="margin-top:12px;">
-          <div style="flex:1; min-width:220px;">
-            <label style="color:var(--muted); font-size:13px;">Title</label>
-            <input id="testTitle" placeholder="e.g., Bio Test #1" />
-          </div>
-          <div style="flex:1; min-width:220px;">
-            <label style="color:var(--muted); font-size:13px;">Subject</label>
-            <input id="testSubject" placeholder="e.g., Biology" />
-          </div>
-        </div>
-
-        <div class="row">
-          <div style="flex:1; min-width:220px;">
-            <label style="color:var(--muted); font-size:13px;"># Questions</label>
-            <select id="testCount">
-              <option>5</option><option>10</option><option selected>15</option><option>20</option><option>30</option>
-            </select>
-          </div>
-          <div style="flex:1; min-width:220px;">
-            <label style="color:var(--muted); font-size:13px;">Difficulty</label>
-            <select id="testDiff">
-              <option>Easy</option><option selected>Medium</option><option>Hard</option>
-            </select>
-          </div>
-        </div>
-
-        <div style="margin-top:10px;">
-          <label style="color:var(--muted); font-size:13px;">Topics (comma separated)</label>
-          <input id="testTopics" placeholder="cells, mitosis, genetics" />
-        </div>
-
-        <div class="row">
-          <button class="primary" onclick="createTest()">Create Test</button>
-          <button class="ghost" onclick="toast('Next upgrade','Timed + scored tests.')">Coming next</button>
-        </div>
-
+        <div style="color:var(--muted); font-size:13px;">Coming next</div>
         <div class="list" id="testsList"></div>
       </section>
 
-      <!-- GUIDES -->
       <section id="page_guides" class="panel" style="display:none;">
         <h3 style="margin:0 0 6px;">Study Guides</h3>
-        <div style="color:var(--muted); font-size:13px; line-height:1.4;">
-          Customization can come later. Next real feature after flashcards: timed test-taking.
-        </div>
-        <div style="margin-top:12px;">
-          <span class="pill">Notes → flashcards</span>
-          <span class="pill">Custom tests</span>
-          <span class="pill">Scored tests next</span>
-        </div>
+        <div style="color:var(--muted); font-size:13px;">Coming next</div>
       </section>
 
-      <!-- SETTINGS -->
       <section id="page_settings" class="panel" style="display:none;">
         <h3 style="margin:0 0 6px;">Settings</h3>
-        <div style="color:var(--muted); font-size:13px; line-height:1.4;">
-          Local mode: everything saves in your browser.
-        </div>
-
         <div class="row">
           <button class="ghost" onclick="exportAll()">⬇️ Export Data</button>
           <button class="ghost" onclick="importAll()">⬆️ Import Data</button>
@@ -518,14 +450,10 @@
       <textarea id="noteBody" placeholder="Write your notes here..."></textarea>
       <div class="row">
         <button class="primary" onclick="saveNote()">Save</button>
-        <button class="ghost" onclick="duplicateNote()">Duplicate</button>
-        <button class="ghost" onclick="deleteOpenNote()">Delete</button>
         <button class="ghost" onclick="openFromNoteToImport()">✨ Generate Flashcards</button>
       </div>
       <div class="hint">
-        BEST formats:
-        <br>• Term - definition
-        <br>• Q: question  /  A: answer
+        Tip: If your notes are one big paragraph, we’ll split it into multiple cards automatically.
       </div>
     </div>
   </div>
@@ -560,7 +488,6 @@
         <div style="flex:1; font-weight:900;">Document upload (UI)</div>
         <button class="close" onclick="closeModal('doc')">Close</button>
       </div>
-      <div class="hint">For now: saves file metadata locally. Parsing later.</div>
       <input type="file" id="docFile" />
       <div class="row">
         <button class="primary" onclick="saveDocMeta()">Save document</button>
@@ -572,10 +499,9 @@
   <div class="overlay" id="modal_audio">
     <div class="modal">
       <div class="modalTop">
-        <div style="flex:1; font-weight:900;">Audio upload (placeholder)</div>
+        <div style="flex:1; font-weight:900;">Audio upload</div>
         <button class="close" onclick="closeModal('audio')">Close</button>
       </div>
-      <div class="hint">For now: saves audio file metadata. Transcript later.</div>
       <input type="file" id="audioFile" accept="audio/*" />
       <div class="row">
         <button class="primary" onclick="saveAudioMeta()">Save audio</button>
@@ -597,22 +523,6 @@
           <input id="impSetName" placeholder="e.g., Biology Unit 3" />
         </div>
         <div style="flex:1; min-width:240px;">
-          <label style="color:var(--muted); font-size:13px;">Subject</label>
-          <input id="impSubject" placeholder="e.g., Biology" />
-        </div>
-      </div>
-
-      <div class="row">
-        <div style="flex:1; min-width:240px;">
-          <label style="color:var(--muted); font-size:13px;">Card style</label>
-          <select id="impStyle">
-            <option value="auto" selected>Auto (best guess)</option>
-            <option value="qa">Q&A (Q: ... / A: ...)</option>
-            <option value="def">Definitions (Term - definition)</option>
-            <option value="bullets">Bullets/Paragraphs (always makes a back side)</option>
-          </select>
-        </div>
-        <div style="flex:1; min-width:240px;">
           <label style="color:var(--muted); font-size:13px;">Max cards</label>
           <select id="impMax">
             <option>10</option><option selected>20</option><option>30</option><option>50</option>
@@ -627,7 +537,10 @@
 
       <div class="row">
         <button class="primary" onclick="importFlashcards()">Generate</button>
-        <button class="ghost" onclick="toast('Tip','Use Term - definition for perfect cards.')">Help</button>
+      </div>
+
+      <div class="hint">
+        Works with: new lines, bullets, Term - definition, Q/A, or even big paragraphs.
       </div>
     </div>
   </div>
@@ -635,13 +548,11 @@
   <div class="toast" id="toast"></div>
 
   <script>
-    const NOTES_KEY = "nuro_notes_v4";
-    const FLASH_KEY = "nuro_flash_v4";
-    const TESTS_KEY = "nuro_tests_v4";
+    const NOTES_KEY = "nuro_notes_v5";
+    const FLASH_KEY = "nuro_flash_v5";
 
     let notesState = loadNotes();
     let flashState = loadFlash();
-    let testsState = loadTests();
     let openNoteId = null;
 
     function nid(){ return Math.random().toString(16).slice(2) + Date.now().toString(16); }
@@ -652,12 +563,11 @@
       return {
         notesTab: "my",
         notes: [
-          { id:nid(), type:"note", title:"Bio Example (try generating)", updatedAt:Date.now()-86400000, body:
-`Cell membrane - Controls what enters and leaves the cell
-Mitochondria - Produces ATP (energy)
-Q: What is osmosis?
-A: The diffusion of water across a membrane from high water to low water`
-          }
+          { id:nid(), type:"note", title:"Bio (paste anything)", updatedAt:Date.now()-86400000, body:
+`Cell membrane - Controls what enters and leaves the cell.
+Mitochondria - Produces ATP (energy).
+Osmosis is the diffusion of water across a membrane from high water concentration to low water concentration.
+Enzymes speed up reactions and can denature with temperature or pH changes.`}
         ]
       };
     }
@@ -669,13 +579,6 @@ A: The diffusion of water across a membrane from high water to low water`
       return { sets: [], study:{ setId:null, index:0, showBack:false } };
     }
     function saveFlash(){ localStorage.setItem(FLASH_KEY, JSON.stringify(flashState)); }
-
-    function loadTests(){
-      const raw = localStorage.getItem(TESTS_KEY);
-      if(raw) return JSON.parse(raw);
-      return { items: [] };
-    }
-    function saveTests(){ localStorage.setItem(TESTS_KEY, JSON.stringify(testsState)); }
 
     function setPage(next){
       document.getElementById("navDash").classList.toggle("active", next==="dashboard");
@@ -690,14 +593,7 @@ A: The diffusion of water across a membrane from high water to low water`
       show("page_guides", next==="guides");
       show("page_settings", next==="settings");
 
-      const title = document.getElementById("pageTitle");
-      const sub = document.getElementById("pageSub");
-
-      if(next==="dashboard"){ title.textContent="Dashboard"; sub.textContent="Create new notes"; }
-      if(next==="flash"){ title.textContent="Flashcards"; sub.textContent="Flip cards to see the explanation"; renderFlash(); }
-      if(next==="tests"){ title.textContent="Practice Tests"; sub.textContent="Build custom tests"; renderTests(); }
-      if(next==="guides"){ title.textContent="Study Guides"; sub.textContent="Core first, customization later"; }
-      if(next==="settings"){ title.textContent="Settings"; sub.textContent="Export/import/reset"; }
+      if(next==="flash") renderFlash();
     }
     function show(id, on){ document.getElementById(id).style.display = on ? "" : "none"; }
 
@@ -712,50 +608,27 @@ A: The diffusion of water across a membrane from high water to low water`
     function renderNotes(){
       const list = document.getElementById("notesList");
       if(notesState.notesTab === "shared"){
-        list.innerHTML = `
-          <div class="noteItem">
-            <div class="noteMeta">
-              <strong>Shared with Me</strong>
-              <div class="muted">Sharing needs accounts. We’ll add later.</div>
-            </div>
-            <div class="btnrow">
-              <button class="ghost" onclick="toast('Coming soon','Login + sharing later.')">Info</button>
-            </div>
-          </div>`;
+        list.innerHTML = `<div style="color:var(--muted); font-size:13px;">Sharing later.</div>`;
         return;
       }
-
       const q = (document.getElementById("searchInput").value || "").trim().toLowerCase();
       const items = notesState.notes.slice().sort((a,b)=>b.updatedAt-a.updatedAt).filter(n=>{
-        const blob = `${n.title||""} ${n.body||""} ${n.url||""}`.toLowerCase();
+        const blob = `${n.title||""} ${n.body||""}`.toLowerCase();
         return q ? blob.includes(q) : true;
       });
 
-      if(items.length===0){
-        list.innerHTML = `<div style="color:var(--muted); font-size:13px;">No notes yet. Create one.</div>`;
-        return;
-      }
-
-      list.innerHTML = items.map(n=>{
-        const icon = n.type==="link" ? "🔗" : (n.type==="doc" ? "📄" : (n.type==="audio" ? "🎙️" : "📝"));
-        const subtitle =
-          n.type==="link" ? `Website link • ${safe(n.url||"")}` :
-          n.type==="doc" ? `Document • ${safe(n.fileName||"")}` :
-          n.type==="audio" ? `Audio • ${safe(n.fileName||"")}` :
-          `Updated ${timeAgo(n.updatedAt)}`;
-
-        return `
-          <div class="noteItem">
-            <div class="noteMeta">
-              <strong>${icon} ${safe(n.title||"Untitled")}</strong>
-              <div class="muted">${subtitle}</div>
-            </div>
-            <div class="btnrow">
-              <button class="ghost" onclick="openItem('${n.id}')">Open</button>
-              <button class="ghost" onclick="deleteItem('${n.id}')">Delete</button>
-            </div>
-          </div>`;
-      }).join("");
+      list.innerHTML = items.map(n=>`
+        <div class="noteItem">
+          <div class="noteMeta">
+            <strong>📝 ${safe(n.title||"Untitled")}</strong>
+            <div class="muted">Updated ${timeAgo(n.updatedAt)}</div>
+          </div>
+          <div class="btnrow">
+            <button class="ghost" onclick="openItem('${n.id}')">Open</button>
+            <button class="ghost" onclick="deleteItem('${n.id}')">Delete</button>
+          </div>
+        </div>
+      `).join("");
     }
 
     function newBlankDoc(){
@@ -769,188 +642,102 @@ A: The diffusion of water across a membrane from high water to low water`
     function openItem(id){
       const n = notesState.notes.find(x=>x.id===id);
       if(!n) return;
-
-      if(n.type==="link"){ window.open(n.url, "_blank"); return; }
-      if(n.type==="doc" || n.type==="audio"){ toast("Saved locally","Metadata stored. Parsing later."); return; }
-
       openNoteId = id;
-      document.getElementById("noteTitle").value = n.title||"";
-      document.getElementById("noteBody").value = n.body||"";
+      noteTitle.value = n.title||"";
+      noteBody.value = n.body||"";
       openModal("note");
     }
 
     function saveNote(){
-      if(!openNoteId) return;
       const n = notesState.notes.find(x=>x.id===openNoteId);
       if(!n) return;
-      n.title = (document.getElementById("noteTitle").value||"").trim() || "Untitled note";
-      n.body = (document.getElementById("noteBody").value||"").trim();
+      n.title = (noteTitle.value||"").trim() || "Untitled note";
+      n.body = (noteBody.value||"").trim();
       n.updatedAt = Date.now();
       saveNotes();
-      toast("Saved","Your note is saved.");
+      toast("Saved", "Note saved.");
       renderNotes();
-    }
-
-    function duplicateNote(){
-      if(!openNoteId) return;
-      const n = notesState.notes.find(x=>x.id===openNoteId);
-      if(!n) return;
-      const copy = { ...n, id:nid(), title:(n.title||"Untitled")+" (copy)", updatedAt:Date.now() };
-      notesState.notes.unshift(copy);
-      saveNotes();
-      toast("Duplicated","Created a copy.");
-      renderNotes();
-    }
-
-    function deleteOpenNote(){
-      if(!openNoteId) return;
-      deleteItem(openNoteId);
-      closeModal("note");
     }
 
     function deleteItem(id){
-      const n = notesState.notes.find(x=>x.id===id);
-      if(!n) return;
-      if(!confirm(`Delete "${n.title||"Untitled"}"?`)) return;
+      if(!confirm("Delete this note?")) return;
       notesState.notes = notesState.notes.filter(x=>x.id!==id);
       saveNotes();
-      toast("Deleted","Item removed.");
       renderNotes();
     }
 
     function openModal(name){ document.getElementById("modal_"+name).style.display="flex"; }
     function closeModal(name){ document.getElementById("modal_"+name).style.display="none"; }
 
-    function saveLink(){
-      const title = (document.getElementById("linkTitle").value||"").trim() || "Website link";
-      const url = (document.getElementById("linkUrl").value||"").trim();
-      if(!url.startsWith("http")){ alert("URL must start with http(s)://"); return; }
-      notesState.notes.unshift({ id:nid(), type:"link", title, url, updatedAt:Date.now() });
-      saveNotes();
-      document.getElementById("linkTitle").value="";
-      document.getElementById("linkUrl").value="";
-      closeModal("link");
-      toast("Link saved", title);
-      renderNotes();
-    }
-
-    function saveDocMeta(){
-      const f = document.getElementById("docFile").files[0];
-      if(!f){ alert("Choose a file first."); return; }
-      notesState.notes.unshift({ id:nid(), type:"doc", title:f.name, fileName:f.name, mime:f.type, size:f.size, updatedAt:Date.now() });
-      saveNotes();
-      document.getElementById("docFile").value="";
-      closeModal("doc");
-      toast("Document saved","Metadata stored.");
-      renderNotes();
-    }
-
-    function saveAudioMeta(){
-      const f = document.getElementById("audioFile").files[0];
-      if(!f){ alert("Choose an audio file first."); return; }
-      notesState.notes.unshift({ id:nid(), type:"audio", title:f.name, fileName:f.name, mime:f.type, size:f.size, updatedAt:Date.now() });
-      saveNotes();
-      document.getElementById("audioFile").value="";
-      closeModal("audio");
-      toast("Audio saved","Metadata stored.");
-      renderNotes();
-    }
-
-    // -------- Flashcards --------
     function openFromNoteToImport(){
       const n = notesState.notes.find(x=>x.id===openNoteId);
       if(!n) return;
       closeModal("note");
-      document.getElementById("impSetName").value = n.title || "Flashcards";
-      document.getElementById("impSubject").value = "Biology";
-      document.getElementById("impText").value = n.body || "";
-      document.getElementById("impStyle").value = "auto";
-      document.getElementById("impMax").value = "20";
+      impSetName.value = n.title || "Flashcards";
+      impText.value = n.body || "";
       openModal("import");
     }
 
-    function importFlashcards(){
-      const name = (document.getElementById("impSetName").value||"").trim() || "Flashcards";
-      const subject = (document.getElementById("impSubject").value||"").trim() || "General";
-      const style = document.getElementById("impStyle").value;
-      const maxCards = parseInt(document.getElementById("impMax").value,10);
-      const text = (document.getElementById("impText").value||"").trim();
-      if(!text){ alert("Paste some notes first."); return; }
+    // ----------- NEW: strong splitter -----------
+    function splitIntoItems(raw){
+      let t = (raw||"").replace(/\r/g,"").trim();
+      if(!t) return [];
 
-      const cards = makeCards(text, style).slice(0, maxCards);
-      if(cards.length===0){
-        alert("Couldn’t detect cards. Try Term - definition or Q:/A: format.");
+      // Normalize bullets to new lines
+      t = t.replace(/[•·]/g, "\n• ");
+      // If it’s one giant paragraph, split into sentences
+      if(!t.includes("\n") && t.length > 120){
+        t = t
+          .replace(/([.!?])\s+/g, "$1\n")
+          .replace(/;\s+/g, ";\n");
+      }
+
+      // Also split by new lines
+      let lines = t.split("\n").map(s=>s.trim()).filter(Boolean);
+
+      // If still too few lines but has many sentences, split more
+      if(lines.length < 4 && t.length > 180){
+        lines = t.split(/(?<=[.!?])\s+/g).map(s=>s.trim()).filter(Boolean);
+      }
+
+      // Clean bullet prefixes
+      lines = lines.map(l=>l.replace(/^[-•*]\s+/,"").trim()).filter(Boolean);
+
+      // Remove super-short junk
+      lines = lines.filter(l=>l.length >= 8);
+
+      return lines;
+    }
+
+    function importFlashcards(){
+      const name = (impSetName.value||"").trim() || "Flashcards";
+      const maxCards = parseInt(impMax.value,10);
+      const text = (impText.value||"").trim();
+      if(!text){ alert("Paste notes first."); return; }
+
+      const items = splitIntoItems(text);
+      const cards = items.map(makeCardFromLine).slice(0, maxCards);
+
+      if(cards.length < 2){
+        alert("Still only made 1 card. Your notes might be 1 short sentence. Add more lines/sentences.");
         return;
       }
 
-      flashState.sets.unshift({ id:nid(), name, subject, createdAt:Date.now(), cards });
+      flashState.sets.unshift({ id:nid(), name, createdAt:Date.now(), cards });
       saveFlash();
       closeModal("import");
-      toast("Flashcards created", `${cards.length} cards`);
+      toast("Flashcards created", `Generated ${cards.length} cards`);
       setPage("flash");
     }
 
-    function makeCards(text, style){
-      const lines = text.split(/\r?\n/).map(l=>l.trim()).filter(Boolean);
-
-      const looksQA = lines.some(l=>/^q[:\-]/i.test(l)) && lines.some(l=>/^a[:\-]/i.test(l));
-      const looksDef = lines.some(l=>/^(.+?)\s*[-–—:]\s*(.+)$/.test(l));
-      const looksBul = lines.filter(l=>/^[-•*]\s+/.test(l)).length >= 2;
-
-      let mode = style;
-      if(mode==="auto"){
-        if(looksQA) mode="qa";
-        else if(looksDef) mode="def";
-        else if(looksBul) mode="bullets";
-        else mode="bullets";
+    function makeCardFromLine(line){
+      // If "Term - definition"
+      const m = line.match(/^(.+?)\s*[-–—:]\s*(.+)$/);
+      if(m){
+        return { front: m[1].trim(), back: m[2].trim() };
       }
-
-      // Q/A mode
-      if(mode==="qa"){
-        const out=[]; let q=null;
-        for(const l of lines){
-          if(/^q[:\-]/i.test(l)){ q=l.replace(/^q[:\-]\s*/i,"").trim(); continue; }
-          if(/^a[:\-]/i.test(l) && q){
-            const a=l.replace(/^a[:\-]\s*/i,"").trim();
-            out.push({front:q, back:a});
-            q=null;
-          }
-        }
-        return out;
-      }
-
-      // Definition mode: Term - definition
-      if(mode==="def"){
-        const out=[];
-        for(const l of lines){
-          const m=l.match(/^(.+?)\s*[-–—:]\s*(.+)$/);
-          if(m) out.push({front:m[1].trim(), back:m[2].trim()});
-        }
-        return out;
-      }
-
-      // Bullets/paragraphs mode:
-      // ALWAYS creates a back side so flipping never feels broken.
-      const cleaned = lines.map(l=>l.replace(/^[-•*]\s+/,"").trim()).filter(Boolean);
-
-      return cleaned.map(l=>{
-        // If the line itself contains a separator, split it into front/back
-        const m = l.match(/^(.+?)\s*[-–—:]\s*(.+)$/);
-        if(m){
-          return { front: m[1].trim(), back: m[2].trim() };
-        }
-
-        // Otherwise: front = short hint, back = full content
-        const short = shorten(l, 55);
-        const back = l.length > short.length ? l : ("Explanation: " + l);
-        return { front: short, back: back };
-      });
-    }
-
-    function shorten(s, n){
-      s = String(s).trim();
-      if(s.length <= n) return s;
-      return s.slice(0, n).trim() + "…";
+      // Otherwise: front short, back full
+      return { front: shorten(line, 60), back: line };
     }
 
     function renderFlash(){
@@ -962,23 +749,20 @@ A: The diffusion of water across a membrane from high water to low water`
         if(!set){ flashState.study={setId:null,index:0,showBack:false}; saveFlash(); renderFlash(); return; }
         const c = set.cards[study.index];
         const isBack = !!study.showBack;
-        const faceText = isBack ? (c.back || "(no explanation)") : (c.front || "(no text)");
-
         root.innerHTML = `
           <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; margin-top:10px;">
             <div>
               <div style="font-weight:950; font-size:16px;">Study: ${safe(set.name)}</div>
-              <div style="color:var(--muted); font-size:13px;">${study.index+1} / ${set.cards.length} • click card to flip</div>
+              <div style="color:var(--muted); font-size:13px;">${study.index+1} / ${set.cards.length}</div>
             </div>
-            <div style="display:flex; gap:10px; flex-wrap:wrap;">
-              <button class="ghost" onclick="shuffleStudy()">Shuffle</button>
+            <div class="btnrow">
               <button class="ghost" onclick="exitStudy()">Exit</button>
             </div>
           </div>
 
           <div class="studyCard" onclick="flipStudy()">
             <div class="faceTag">${isBack ? "BACK (Explanation)" : "FRONT (Prompt)"}</div>
-            <div class="faceText">${safe(faceText)}</div>
+            <div class="faceText">${safe(isBack ? c.back : c.front)}</div>
           </div>
 
           <div class="row">
@@ -990,7 +774,7 @@ A: The diffusion of water across a membrane from high water to low water`
       }
 
       if(flashState.sets.length===0){
-        root.innerHTML = `<div style="margin-top:12px; color:var(--muted); font-size:13px;">No sets yet. Create from Notes.</div>`;
+        root.innerHTML = `<div style="margin-top:12px; color:var(--muted); font-size:13px;">No sets yet.</div>`;
         return;
       }
 
@@ -1000,8 +784,7 @@ A: The diffusion of water across a membrane from high water to low water`
             <div class="setCard">
               <div>
                 <div style="font-weight:950;">${safe(s.name)}</div>
-                <div style="color:var(--muted); font-size:12px; margin-top:4px;">${safe(s.subject)} • ${s.cards.length} cards</div>
-                <div class="pill">created ${timeAgo(s.createdAt)}</div>
+                <div style="color:var(--muted); font-size:12px; margin-top:4px;">${s.cards.length} cards • created ${timeAgo(s.createdAt)}</div>
               </div>
               <div class="btnrow">
                 <button class="ghost" onclick="startStudy('${s.id}')">Study</button>
@@ -1026,67 +809,15 @@ A: The diffusion of water across a membrane from high water to low water`
       flashState.study.showBack=false;
       saveFlash(); renderFlash();
     }
-    function shuffleStudy(){
-      const set = flashState.sets.find(s=>s.id===flashState.study.setId);
-      if(!set) return;
-      set.cards.sort(()=>Math.random()-0.5);
-      flashState.study.index=0; flashState.study.showBack=false;
-      saveFlash(); renderFlash();
-    }
     function deleteSet(id){
-      if(!confirm("Delete this flashcard set?")) return;
+      if(!confirm("Delete this set?")) return;
       flashState.sets = flashState.sets.filter(s=>s.id!==id);
       flashState.study = { setId:null, index:0, showBack:false };
       saveFlash(); renderFlash();
     }
 
-    // -------- Tests --------
-    function createTest(){
-      const title = (document.getElementById("testTitle").value||"").trim();
-      if(!title){ alert("Title is required."); return; }
-      const subject = (document.getElementById("testSubject").value||"").trim() || "General";
-      const count = parseInt(document.getElementById("testCount").value,10);
-      const diff = document.getElementById("testDiff").value;
-      const topics = (document.getElementById("testTopics").value||"").trim();
-
-      testsState.items.unshift({ id:nid(), title, subject, count, diff, topics, createdAt:Date.now() });
-      saveTests();
-      document.getElementById("testTitle").value="";
-      document.getElementById("testSubject").value="";
-      document.getElementById("testTopics").value="";
-      toast("Test created", title);
-      renderTests();
-    }
-
-    function renderTests(){
-      const list = document.getElementById("testsList");
-      if(testsState.items.length===0){
-        list.innerHTML = `<div style="margin-top:12px; color:var(--muted); font-size:13px;">No tests yet. Create one above.</div>`;
-        return;
-      }
-      list.innerHTML = testsState.items.map(t=>`
-        <div class="noteItem">
-          <div class="noteMeta">
-            <strong>📝 ${safe(t.title)}</strong>
-            <div class="muted">${safe(t.subject)} • ${t.count} Q • ${safe(t.diff)} • ${safe(t.topics||"no topics")}</div>
-          </div>
-          <div class="btnrow">
-            <button class="ghost" onclick="toast('Next upgrade','Real test-taking mode soon.')">Open</button>
-            <button class="ghost" onclick="deleteTest('${t.id}')">Delete</button>
-          </div>
-        </div>
-      `).join("");
-    }
-
-    function deleteTest(id){
-      if(!confirm("Delete this test?")) return;
-      testsState.items = testsState.items.filter(x=>x.id!==id);
-      saveTests(); renderTests();
-    }
-
-    // -------- Settings --------
     function exportAll(){
-      const payload = { notesState, flashState, testsState };
+      const payload = { notesState, flashState };
       const blob = new Blob([JSON.stringify(payload, null, 2)], { type:"application/json" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
@@ -1109,10 +840,9 @@ A: The diffusion of water across a membrane from high water to low water`
             const p=JSON.parse(r.result);
             notesState=p.notesState||notesState;
             flashState=p.flashState||flashState;
-            testsState=p.testsState||testsState;
-            saveNotes(); saveFlash(); saveTests();
+            saveNotes(); saveFlash();
             toast("Imported","Data loaded.");
-            renderNotes(); renderFlash(); renderTests();
+            renderNotes(); renderFlash();
             setPage("dashboard");
           }catch(e){ alert("Invalid JSON."); }
         };
@@ -1124,16 +854,13 @@ A: The diffusion of water across a membrane from high water to low water`
       if(!confirm("Delete ALL local data?")) return;
       localStorage.removeItem(NOTES_KEY);
       localStorage.removeItem(FLASH_KEY);
-      localStorage.removeItem(TESTS_KEY);
       notesState = loadNotes();
       flashState = loadFlash();
-      testsState = loadTests();
       toast("Reset","All data cleared.");
-      renderNotes(); renderFlash(); renderTests();
+      renderNotes(); renderFlash();
       setPage("dashboard");
     }
 
-    // -------- Utils --------
     function safe(s){
       return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     }
@@ -1153,6 +880,11 @@ A: The diffusion of water across a membrane from high water to low water`
       clearTimeout(window.__toastTimer);
       window.__toastTimer = setTimeout(()=>t.style.display="none", 2600);
     }
+    function shorten(s, n){
+      s = String(s).trim();
+      if(s.length <= n) return s;
+      return s.slice(0, n).trim() + "…";
+    }
 
     document.addEventListener("keydown",(e)=>{
       if((e.ctrlKey||e.metaKey) && e.key.toLowerCase()==="k"){
@@ -1171,7 +903,6 @@ A: The diffusion of water across a membrane from high water to low water`
     setNotesTab(notesState.notesTab || "my");
     renderNotes();
     renderFlash();
-    renderTests();
   </script>
 </body>
 </html>
