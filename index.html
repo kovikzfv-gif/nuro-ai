@@ -16,9 +16,6 @@
       --accent1:#4f46e5;
       --accent2:#22d3ee;
       --accent3:#a855f7;
-      --good:#22c55e;
-      --bad:#ef4444;
-      --warn:#f59e0b;
       --radius:18px;
     }
     *{ box-sizing:border-box; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; }
@@ -32,15 +29,8 @@
     }
 
     /* Layout */
-    .app{
-      display:grid;
-      grid-template-columns: 280px 1fr;
-      min-height:100vh;
-    }
-    @media (max-width: 980px){
-      .app{ grid-template-columns: 1fr; }
-      .sidebar{ position:sticky; top:0; z-index:5; }
-    }
+    .app{ display:grid; grid-template-columns: 280px 1fr; min-height:100vh; }
+    @media (max-width: 980px){ .app{ grid-template-columns: 1fr; } .sidebar{ position:sticky; top:0; z-index:5; } }
 
     /* Sidebar */
     .sidebar{
@@ -48,13 +38,11 @@
       background: linear-gradient(180deg, #0b0d14cc, #090a0fcc);
       backdrop-filter: blur(10px);
       padding:18px;
-      display:flex;
-      flex-direction:column;
-      gap:14px;
+      display:flex; flex-direction:column; gap:14px;
     }
     .brand{
       display:flex; gap:12px; align-items:center;
-      padding:10px 10px; border:1px solid var(--line);
+      padding:10px; border:1px solid var(--line);
       border-radius: var(--radius);
       background: #0b0d14aa;
     }
@@ -67,15 +55,12 @@
     .brand h1{ margin:0; font-size:18px; letter-spacing:0.2px; }
     .brand .tag{ margin-top:2px; color:var(--muted); font-size:12px; }
 
-    .nav{
-      display:flex; flex-direction:column; gap:8px;
-      margin-top:6px;
-    }
+    .nav{ display:flex; flex-direction:column; gap:8px; margin-top:6px; }
     .navbtn{
       border:1px solid transparent;
       background: transparent;
       color:var(--text);
-      padding:12px 12px;
+      padding:12px;
       border-radius: 14px;
       cursor:pointer;
       text-align:left;
@@ -87,17 +72,15 @@
       border-color:#343a55;
       box-shadow: 0 0 0 2px #343a5533 inset;
     }
-    .dot{
-      width:8px; height:8px; border-radius:999px;
-      background: #8b8fa7;
-    }
+    .dot{ width:8px; height:8px; border-radius:999px; background: #8b8fa7; }
+
     .upgrade{
       margin-top:auto;
       border:1px solid #3b3b55;
       background: linear-gradient(135deg, var(--accent1), var(--accent2), var(--accent3));
       color:#0b0d14;
-      font-weight:800;
-      padding:12px 12px;
+      font-weight:900;
+      padding:12px;
       border-radius: 14px;
       cursor:pointer;
     }
@@ -110,19 +93,18 @@
       width:36px; height:36px; border-radius:999px;
       background:#171a28; border:1px solid var(--line);
       display:flex; align-items:center; justify-content:center;
-      color:#cbd5ff; font-weight:800;
+      color:#cbd5ff; font-weight:900;
     }
 
     /* Main */
-    .main{
-      padding:22px;
-    }
+    .main{ padding:22px; }
     .topbar{
       display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap;
       margin-bottom:16px;
     }
     .title h2{ margin:0; font-size:40px; letter-spacing:0.2px; }
     .title .sub{ margin-top:6px; color:var(--muted); }
+
     .search{
       min-width:260px; width:380px; max-width:100%;
       display:flex; gap:8px; align-items:center;
@@ -193,9 +175,7 @@
       display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;
       margin-top:14px;
     }
-    .tabs{
-      display:flex; gap:8px; align-items:center;
-    }
+    .tabs{ display:flex; gap:8px; align-items:center; }
     .tab{
       border:1px solid var(--line);
       background:#0d0f15;
@@ -216,11 +196,17 @@
       font-size:13px;
     }
     .ghost:hover{ border-color:#3b3b55; }
-
-    .list{
-      margin-top:12px;
-      display:flex; flex-direction:column; gap:10px;
+    .primary{
+      border:none;
+      background: linear-gradient(135deg, var(--accent1), var(--accent2), var(--accent3));
+      color:#0b0d14;
+      font-weight:950;
+      padding:10px 12px;
+      border-radius: 12px;
+      cursor:pointer;
     }
+
+    .list{ margin-top:12px; display:flex; flex-direction:column; gap:10px; }
     .noteItem{
       border:1px solid var(--line);
       background:#0d0f15;
@@ -248,7 +234,7 @@
       z-index:50;
     }
     .modal{
-      width:min(900px, 100%);
+      width:min(980px, 100%);
       border:1px solid var(--line);
       border-radius: 18px;
       background: #0b0d14f2;
@@ -259,7 +245,7 @@
       display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;
       margin-bottom:10px;
     }
-    .modalTop input{
+    .modalTop input, .modalTop select{
       width:100%;
       border:1px solid var(--line);
       background:#0d0f15;
@@ -287,17 +273,31 @@
       resize:vertical;
       outline:none;
     }
-    .modalRow{
-      display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;
+    .modalRow{ display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; }
+    .hint{ color:var(--muted); font-size:12px; margin-top:10px; line-height:1.4; }
+    .two{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
+    @media (max-width: 780px){ .two{ grid-template-columns: 1fr; } }
+
+    /* Flashcards */
+    .setGrid{ display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-top:12px; }
+    @media (max-width: 860px){ .setGrid{ grid-template-columns: 1fr; } }
+    .setCard{
+      border:1px solid var(--line);
+      background:#0d0f15;
+      border-radius:16px;
+      padding:14px;
+      display:flex; justify-content:space-between; gap:12px; align-items:flex-start;
     }
-    .primary{
-      border:none;
-      background: linear-gradient(135deg, var(--accent1), var(--accent2), var(--accent3));
-      color:#0b0d14;
-      font-weight:900;
-      padding:10px 12px;
-      border-radius: 12px;
+    .studyCard{
+      border:1px solid var(--line);
+      background:#0d0f15;
+      border-radius:18px;
+      padding:18px;
+      min-height:200px;
+      display:flex; align-items:center; justify-content:center;
+      text-align:center;
       cursor:pointer;
+      user-select:none;
     }
     .pill{
       display:inline-block;
@@ -306,19 +306,11 @@
       border:1px solid var(--line);
       color:var(--muted);
       font-size:12px;
+      margin-right:8px;
+      margin-top:6px;
     }
-    .hint{
-      color:var(--muted);
-      font-size:12px;
-      margin-top:10px;
-      line-height:1.4;
-    }
-    .two{
-      display:grid; grid-template-columns: 1fr 1fr; gap:10px;
-    }
-    @media (max-width: 780px){ .two{ grid-template-columns: 1fr; } }
 
-    /* Simple toast */
+    /* Toast */
     .toast{
       position:fixed; bottom:18px; right:18px;
       background:#0d0f15; border:1px solid var(--line);
@@ -326,7 +318,7 @@
       padding:10px 12px; border-radius:12px;
       display:none;
       z-index:60;
-      max-width: 320px;
+      max-width: 340px;
     }
     .toast small{ color:var(--muted); }
   </style>
@@ -346,16 +338,18 @@
 
       <div class="nav">
         <button class="navbtn active" id="navDash" onclick="setPage('dashboard')"><span class="dot"></span> Dashboard</button>
+        <button class="navbtn" id="navFlash" onclick="setPage('flash')"><span class="dot"></span> Flashcards</button>
+        <button class="navbtn" id="navTests" onclick="setPage('tests')"><span class="dot"></span> Practice Tests</button>
         <button class="navbtn" id="navGuides" onclick="setPage('guides')"><span class="dot"></span> Study Guides</button>
         <button class="navbtn" id="navSettings" onclick="setPage('settings')"><span class="dot"></span> Settings</button>
       </div>
 
-      <button class="upgrade" onclick="toast('Premium later', 'We’ll add pricing when the product is bigger.')">✨ Upgrade to Premium</button>
+      <button class="upgrade" onclick="toast('Premium later','We’ll add pricing after core features are solid.')">✨ Upgrade to Premium</button>
 
       <div class="profile">
         <div class="avatar">N</div>
         <div>
-          <div style="color:var(--text); font-weight:800;">nuro user</div>
+          <div style="color:var(--text); font-weight:900;">nuro user</div>
           <div>local mode</div>
         </div>
       </div>
@@ -375,7 +369,7 @@
         </div>
       </div>
 
-      <!-- Pages -->
+      <!-- DASHBOARD -->
       <section id="page_dashboard" class="panel">
         <div class="cards">
           <div class="cardbtn" onclick="newBlankDoc()">
@@ -438,57 +432,99 @@
         <div class="list" id="notesList"></div>
       </section>
 
-      <section id="page_guides" class="panel" style="display:none;">
-        <div class="two">
-          <div class="panel" style="background:#0b0d14aa;">
-            <h3 style="margin:0 0 6px;">Study Guides</h3>
-            <div style="color:var(--muted); font-size:13px; line-height:1.4;">
-              Next we’ll add: exam checklists, topic roadmaps, and “weak-area” summaries.
-              <br><br>
-              For now, your guides come from your notes:
-              <ul>
-                <li>Make a note</li>
-                <li>Click “Open”</li>
-                <li>Use “Generate Flashcards/Test” (next upgrade)</li>
-              </ul>
-            </div>
+      <!-- FLASHCARDS -->
+      <section id="page_flash" class="panel" style="display:none;">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
+          <div>
+            <h3 style="margin:0 0 6px;">Flashcards</h3>
+            <div style="color:var(--muted); font-size:13px;">Create from notes or build manually (next).</div>
           </div>
+          <button class="ghost" onclick="openImportModal()">✨ Create from Notes</button>
+        </div>
 
-          <div class="panel" style="background:#0b0d14aa;">
-            <h3 style="margin:0 0 6px;">Coming next</h3>
-            <div style="display:flex; gap:8px; flex-wrap:wrap;">
-              <span class="pill">Paste notes → flashcards</span>
-              <span class="pill">Timed practice tests</span>
-              <span class="pill">Score & weak topics</span>
-              <span class="pill">Export/import sets</span>
-            </div>
+        <div id="flashRoot"></div>
+      </section>
+
+      <!-- PRACTICE TESTS -->
+      <section id="page_tests" class="panel" style="display:none;">
+        <h3 style="margin:0 0 6px;">Practice Tests</h3>
+        <div style="color:var(--muted); font-size:13px; line-height:1.4;">
+          Build tests you can customize. Next upgrade: real test-taking (timed + scored).
+        </div>
+
+        <div class="two" style="margin-top:12px;">
+          <div>
+            <label style="color:var(--muted); font-size:13px;">Title</label>
+            <input id="testTitle" placeholder="e.g., Biology Practice Test #1" style="width:100%; border:1px solid var(--line); background:#0d0f15; color:var(--text); padding:10px 12px; border-radius:12px; outline:none;">
           </div>
+          <div>
+            <label style="color:var(--muted); font-size:13px;">Subject</label>
+            <input id="testSubject" placeholder="e.g., Biology" style="width:100%; border:1px solid var(--line); background:#0d0f15; color:var(--text); padding:10px 12px; border-radius:12px; outline:none;">
+          </div>
+        </div>
+
+        <div class="two" style="margin-top:10px;">
+          <div>
+            <label style="color:var(--muted); font-size:13px;"># Questions</label>
+            <select id="testCount" style="width:100%; border:1px solid var(--line); background:#0d0f15; color:var(--text); padding:10px 12px; border-radius:12px; outline:none;">
+              <option>5</option><option>10</option><option selected>15</option><option>20</option><option>30</option>
+            </select>
+          </div>
+          <div>
+            <label style="color:var(--muted); font-size:13px;">Difficulty</label>
+            <select id="testDiff" style="width:100%; border:1px solid var(--line); background:#0d0f15; color:var(--text); padding:10px 12px; border-radius:12px; outline:none;">
+              <option>Easy</option><option selected>Medium</option><option>Hard</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-top:10px;">
+          <label style="color:var(--muted); font-size:13px;">Topics (comma separated)</label>
+          <input id="testTopics" placeholder="cells, mitosis, genetics" style="width:100%; border:1px solid var(--line); background:#0d0f15; color:var(--text); padding:10px 12px; border-radius:12px; outline:none;">
+        </div>
+
+        <div class="modalRow">
+          <button class="primary" onclick="createTest()">Create Test</button>
+          <button class="ghost" onclick="toast('Next upgrade','Real test mode: timed + scored + weak topics.')">Coming next</button>
+        </div>
+
+        <div class="list" id="testsList"></div>
+      </section>
+
+      <!-- GUIDES -->
+      <section id="page_guides" class="panel" style="display:none;">
+        <h3 style="margin:0 0 6px;">Study Guides</h3>
+        <div style="color:var(--muted); font-size:13px; line-height:1.4;">
+          Next we’ll add: exam checklists, topic roadmaps, and “weak-area” summaries.
+          <br><br>
+          For now your guides come from notes → flashcards/tests.
+        </div>
+
+        <div style="margin-top:12px;">
+          <span class="pill">Paste notes → flashcards</span>
+          <span class="pill">Timed tests</span>
+          <span class="pill">Score + weak topics</span>
+          <span class="pill">Export/import sets</span>
         </div>
       </section>
 
+      <!-- SETTINGS -->
       <section id="page_settings" class="panel" style="display:none;">
         <h3 style="margin:0 0 6px;">Settings</h3>
         <div style="color:var(--muted); font-size:13px; line-height:1.4;">
-          This version is “local mode” — everything saves in your browser.
-          <br><br>
-          Settings we can add:
-          <ul>
-            <li>Theme toggle</li>
-            <li>Font size</li>
-            <li>Export / import your data</li>
-          </ul>
+          Local mode: everything saves in your browser.
         </div>
 
         <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-          <button class="ghost" onclick="exportData()">⬇️ Export Data</button>
-          <button class="ghost" onclick="importData()">⬆️ Import Data</button>
+          <button class="ghost" onclick="exportAll()">⬇️ Export Data</button>
+          <button class="ghost" onclick="importAll()">⬆️ Import Data</button>
           <button class="ghost" onclick="resetAll()">🗑️ Reset All</button>
         </div>
       </section>
     </main>
   </div>
 
-  <!-- Modal: Editor -->
+  <!-- NOTE EDITOR MODAL -->
   <div class="modalOverlay" id="editorOverlay">
     <div class="modal">
       <div class="modalTop">
@@ -504,16 +540,16 @@
         <button class="primary" onclick="saveNote()">Save</button>
         <button class="ghost" onclick="duplicateNote()">Duplicate</button>
         <button class="ghost" onclick="deleteOpenNote()">Delete</button>
-        <button class="ghost" onclick="toast('Next upgrade', 'We will add: Generate Flashcards + Generate Test from this note.')">✨ Generate</button>
+        <button class="ghost" onclick="generateFlashcardsFromOpenNote()">✨ Generate Flashcards</button>
       </div>
 
       <div class="hint">
-        Tip: This is the Turbo-style workspace. Next we’ll connect notes → flashcards/tests automatically.
+        Tip: Click “Generate Flashcards” to auto-create a set from your note.
       </div>
     </div>
   </div>
 
-  <!-- Modal: Link -->
+  <!-- LINK MODAL -->
   <div class="modalOverlay" id="linkOverlay">
     <div class="modal">
       <div class="modalTop">
@@ -539,7 +575,7 @@
     </div>
   </div>
 
-  <!-- Modal: Upload -->
+  <!-- UPLOAD MODAL (metadata only) -->
   <div class="modalOverlay" id="uploadOverlay">
     <div class="modal">
       <div class="modalTop">
@@ -549,7 +585,7 @@
 
       <div class="panel" style="background:#0d0f15; border-radius:16px;">
         <div style="color:var(--muted); font-size:13px; line-height:1.4;">
-          For now this stores the file name + type (local). Real PDF parsing is the next step.
+          For now this stores file name + type (local). Real PDF parsing comes later.
         </div>
         <div style="height:10px"></div>
         <input type="file" id="docFile" />
@@ -560,7 +596,7 @@
     </div>
   </div>
 
-  <!-- Modal: Audio -->
+  <!-- AUDIO MODAL (metadata only) -->
   <div class="modalOverlay" id="audioOverlay">
     <div class="modal">
       <div class="modalTop">
@@ -570,7 +606,7 @@
 
       <div class="panel" style="background:#0d0f15; border-radius:16px;">
         <div style="color:var(--muted); font-size:13px; line-height:1.4;">
-          We can add real recording later. For now you can upload an audio file name to track it.
+          Later we add real recording + transcript. For now store the file metadata.
         </div>
         <div style="height:10px"></div>
         <input type="file" id="audioFile" accept="audio/*" />
@@ -581,323 +617,118 @@
     </div>
   </div>
 
+  <!-- IMPORT MODAL: Create flashcards from pasted notes -->
+  <div class="modalOverlay" id="importOverlay">
+    <div class="modal">
+      <div class="modalTop">
+        <div style="flex:1; font-weight:950;">Create flashcards from notes</div>
+        <button class="close" onclick="closeImportModal()">Close</button>
+      </div>
+
+      <div class="two">
+        <div>
+          <label style="color:var(--muted); font-size:13px;">Set name</label>
+          <input id="impSetName" placeholder="e.g., Biology Unit 3" />
+        </div>
+        <div>
+          <label style="color:var(--muted); font-size:13px;">Subject</label>
+          <input id="impSubject" placeholder="e.g., Biology" />
+        </div>
+      </div>
+
+      <div class="two" style="margin-top:10px;">
+        <div>
+          <label style="color:var(--muted); font-size:13px;">Card style</label>
+          <select id="impStyle">
+            <option value="auto" selected>Auto (best guess)</option>
+            <option value="qa">Q&A (lines like "Q: ... A: ...")</option>
+            <option value="def">Definitions (Term - definition)</option>
+            <option value="bullets">Bullets (each bullet becomes a card)</option>
+          </select>
+        </div>
+        <div>
+          <label style="color:var(--muted); font-size:13px;">Max cards</label>
+          <select id="impMax">
+            <option>10</option><option selected>20</option><option>30</option><option>50</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="margin-top:10px;">
+        <label style="color:var(--muted); font-size:13px;">Paste notes</label>
+        <textarea id="impText" class="editor" style="min-height:220px;" placeholder="Paste your notes here..."></textarea>
+      </div>
+
+      <div class="modalRow">
+        <button class="primary" onclick="importFlashcards()">Generate</button>
+        <button class="ghost" onclick="toast('Tip','Best results: use Term - definition or Q: / A: format.')">Help</button>
+      </div>
+
+      <div class="hint">
+        This uses smart rules (free). Later we can add AI generation.
+      </div>
+    </div>
+  </div>
+
   <div class="toast" id="toast"></div>
 
   <script>
-    // ----------------- DATA -----------------
-    const KEY = "nuro_workspace_v1";
+    // ----------------- STORAGE KEYS -----------------
+    const NOTES_KEY = "nuro_notes_v2";
+    const FLASH_KEY = "nuro_flash_v2";
+    const TESTS_KEY = "nuro_tests_v2";
 
-    function load(){
-      const raw = localStorage.getItem(KEY);
-      if(raw) return JSON.parse(raw);
-      return {
-        notesTab: "my",
-        folders: [{ id:id(), name:"Earlier" }],
-        notes: [
-          // Example welcome note
-          { id:id(), type:"note", title:"Welcome to Nuro AI", folderId:null, updatedAt:Date.now()-86400000*2, body:"Create notes, then (next upgrade) turn them into flashcards + practice tests." }
-        ]
-      };
-    }
-    function save(){ localStorage.setItem(KEY, JSON.stringify(state)); }
-    function id(){ return Math.random().toString(16).slice(2) + Date.now().toString(16); }
+    // ----------------- STATE -----------------
+    let notesState = loadNotes();
+    let flashState = loadFlash();
+    let testsState = loadTests();
 
-    let state = load();
     let page = "dashboard";
     let openNoteId = null;
 
-    // ----------------- PAGE NAV -----------------
+    // ----------------- LOAD/SAVE -----------------
+    function loadNotes(){
+      const raw = localStorage.getItem(NOTES_KEY);
+      if(raw) return JSON.parse(raw);
+      return {
+        notesTab: "my",
+        notes: [
+          { id: nid(), type:"note", title:"Welcome to Nuro AI", updatedAt:Date.now()-86400000*2, body:"Paste notes here, then generate flashcards.\n\nExample formats:\n- Term - definition\n- Q: ...\\nA: ...\n- • bullet points" }
+        ]
+      };
+    }
+    function saveNotes(){ localStorage.setItem(NOTES_KEY, JSON.stringify(notesState)); }
+
+    function loadFlash(){
+      const raw = localStorage.getItem(FLASH_KEY);
+      if(raw) return JSON.parse(raw);
+      return { sets: [], study:{ setId:null, index:0, showBack:false } };
+    }
+    function saveFlash(){ localStorage.setItem(FLASH_KEY, JSON.stringify(flashState)); }
+
+    function loadTests(){
+      const raw = localStorage.getItem(TESTS_KEY);
+      if(raw) return JSON.parse(raw);
+      return { items: [] };
+    }
+    function saveTests(){ localStorage.setItem(TESTS_KEY, JSON.stringify(testsState)); }
+
+    function nid(){ return Math.random().toString(16).slice(2) + Date.now().toString(16); }
+
+    // ----------------- NAV -----------------
     function setPage(next){
       page = next;
+
       document.getElementById("navDash").classList.toggle("active", next==="dashboard");
+      document.getElementById("navFlash").classList.toggle("active", next==="flash");
+      document.getElementById("navTests").classList.toggle("active", next==="tests");
       document.getElementById("navGuides").classList.toggle("active", next==="guides");
       document.getElementById("navSettings").classList.toggle("active", next==="settings");
 
-      document.getElementById("page_dashboard").style.display = next==="dashboard" ? "" : "none";
-      document.getElementById("page_guides").style.display = next==="guides" ? "" : "none";
-      document.getElementById("page_settings").style.display = next==="settings" ? "" : "none";
+      show("page_dashboard", next==="dashboard");
+      show("page_flash", next==="flash");
+      show("page_tests", next==="tests");
+      show("page_guides", next==="guides");
+      show("page_settings", next==="settings");
 
-      const title = document.getElementById("pageTitle");
-      const sub = document.getElementById("pageSub");
-
-      if(next==="dashboard"){ title.textContent="Dashboard"; sub.textContent="Create new notes"; }
-      if(next==="guides"){ title.textContent="Study Guides"; sub.textContent="Build guides from notes"; }
-      if(next==="settings"){ title.textContent="Settings"; sub.textContent="Local mode controls"; }
-    }
-
-    // ----------------- NOTES TAB -----------------
-    function setNotesTab(which){
-      state.notesTab = which;
-      save();
-      document.getElementById("tabMy").classList.toggle("active", which==="my");
-      document.getElementById("tabShared").classList.toggle("active", which==="shared");
-      renderNotes();
-    }
-
-    // ----------------- NOTES LIST -----------------
-    function renderNotes(){
-      const list = document.getElementById("notesList");
-      if(!list) return;
-
-      if(state.notesTab === "shared"){
-        list.innerHTML = `
-          <div class="noteItem">
-            <div class="noteMeta">
-              <strong>Shared with Me</strong>
-              <div class="muted">Accounts/sharing comes later. For now everything is local.</div>
-            </div>
-            <button class="kebab" onclick="toast('Coming soon','We can add login + sharing later.')">⋮</button>
-          </div>
-        `;
-        return;
-      }
-
-      const q = (document.getElementById("searchInput")?.value || "").trim().toLowerCase();
-      const items = state.notes
-        .slice()
-        .sort((a,b)=> (b.updatedAt||0) - (a.updatedAt||0))
-        .filter(n => {
-          const blob = `${n.title||""} ${n.body||""} ${n.url||""}`.toLowerCase();
-          return q ? blob.includes(q) : true;
-        });
-
-      if(items.length === 0){
-        list.innerHTML = `<div style="color:var(--muted); font-size:13px;">No notes match your search.</div>`;
-        return;
-      }
-
-      list.innerHTML = items.map(n => {
-        const when = timeAgo(n.updatedAt);
-        const icon = n.type==="link" ? "🔗" : (n.type==="doc" ? "📄" : (n.type==="audio" ? "🎙️" : "📝"));
-        const subtitle =
-          n.type==="link" ? `Website link • ${safe(n.url||"")}` :
-          n.type==="doc" ? `Document • ${safe(n.fileName||"")}` :
-          n.type==="audio" ? `Audio • ${safe(n.fileName||"")}` :
-          `Last opened ${when}`;
-
-        return `
-          <div class="noteItem">
-            <div class="noteMeta">
-              <strong>${icon} ${safe(n.title || "Untitled")}</strong>
-              <div class="muted">${subtitle}</div>
-            </div>
-            <div style="display:flex; gap:10px; align-items:center;">
-              <button class="ghost" onclick="openItem('${n.id}')">Open</button>
-              <button class="kebab" onclick="deleteItem('${n.id}')">⋮</button>
-            </div>
-          </div>
-        `;
-      }).join("");
-    }
-
-    function openItem(noteId){
-      const n = state.notes.find(x => x.id === noteId);
-      if(!n) return;
-
-      if(n.type === "link"){
-        window.open(n.url, "_blank");
-        return;
-      }
-      if(n.type === "doc" || n.type === "audio"){
-        toast("Saved locally", "We stored file metadata. Next: parsing/transcripts.");
-        return;
-      }
-
-      openNoteId = noteId;
-      document.getElementById("noteTitle").value = n.title || "";
-      document.getElementById("noteBody").value = n.body || "";
-      document.getElementById("editorOverlay").style.display = "flex";
-    }
-
-    // ----------------- CREATE / EDIT -----------------
-    function newBlankDoc(){
-      const n = { id:id(), type:"note", title:"Untitled note", folderId:null, updatedAt:Date.now(), body:"" };
-      state.notes.unshift(n);
-      save();
-      openItem(n.id);
-      renderNotes();
-    }
-
-    function closeEditor(){
-      document.getElementById("editorOverlay").style.display = "none";
-      openNoteId = null;
-    }
-
-    function saveNote(){
-      if(!openNoteId) return;
-      const n = state.notes.find(x => x.id === openNoteId);
-      if(!n) return;
-      n.title = (document.getElementById("noteTitle").value || "").trim() || "Untitled note";
-      n.body = (document.getElementById("noteBody").value || "").trim();
-      n.updatedAt = Date.now();
-      save();
-      toast("Saved", "Your note is saved locally.");
-      renderNotes();
-    }
-
-    function duplicateNote(){
-      if(!openNoteId) return;
-      const n = state.notes.find(x => x.id === openNoteId);
-      if(!n) return;
-      const copy = { ...n, id:id(), title:`${n.title || "Untitled"} (copy)`, updatedAt:Date.now() };
-      state.notes.unshift(copy);
-      save();
-      toast("Duplicated", "Created a copy.");
-      renderNotes();
-    }
-
-    function deleteOpenNote(){
-      if(!openNoteId) return;
-      deleteItem(openNoteId);
-      closeEditor();
-    }
-
-    function deleteItem(noteId){
-      const n = state.notes.find(x => x.id === noteId);
-      if(!n) return;
-      if(!confirm(`Delete "${n.title || "Untitled"}"?`)) return;
-      state.notes = state.notes.filter(x => x.id !== noteId);
-      save();
-      toast("Deleted", "Item removed.");
-      renderNotes();
-    }
-
-    // ----------------- FOLDERS -----------------
-    function newFolder(){
-      const name = prompt("Folder name?");
-      if(!name) return;
-      state.folders.unshift({ id:id(), name:name.trim() });
-      save();
-      toast("Folder created", name.trim());
-    }
-
-    // ----------------- LINK MODAL -----------------
-    function openLinkModal(){ document.getElementById("linkOverlay").style.display="flex"; }
-    function closeLinkModal(){ document.getElementById("linkOverlay").style.display="none"; }
-    function saveLink(){
-      const title = (document.getElementById("linkTitle").value || "").trim() || "Website link";
-      const url = (document.getElementById("linkUrl").value || "").trim();
-      if(!url.startsWith("http")) { alert("Please enter a valid URL starting with http(s)://"); return; }
-
-      state.notes.unshift({ id:id(), type:"link", title, url, updatedAt:Date.now() });
-      save();
-      closeLinkModal();
-      document.getElementById("linkTitle").value = "";
-      document.getElementById("linkUrl").value = "";
-      toast("Link saved", title);
-      renderNotes();
-    }
-
-    // ----------------- UPLOAD MODAL (metadata) -----------------
-    function openUploadModal(){ document.getElementById("uploadOverlay").style.display="flex"; }
-    function closeUploadModal(){ document.getElementById("uploadOverlay").style.display="none"; }
-    function saveDocMeta(){
-      const f = document.getElementById("docFile").files[0];
-      if(!f){ alert("Choose a file first."); return; }
-      state.notes.unshift({
-        id:id(), type:"doc", title:f.name, fileName:f.name, mime:f.type, size:f.size, updatedAt:Date.now()
-      });
-      save();
-      closeUploadModal();
-      document.getElementById("docFile").value = "";
-      toast("Document saved", "Metadata stored locally.");
-      renderNotes();
-    }
-
-    // ----------------- AUDIO MODAL (metadata) -----------------
-    function openAudioModal(){ document.getElementById("audioOverlay").style.display="flex"; }
-    function closeAudioModal(){ document.getElementById("audioOverlay").style.display="none"; }
-    function saveAudioMeta(){
-      const f = document.getElementById("audioFile").files[0];
-      if(!f){ alert("Choose an audio file first."); return; }
-      state.notes.unshift({
-        id:id(), type:"audio", title:f.name, fileName:f.name, mime:f.type, size:f.size, updatedAt:Date.now()
-      });
-      save();
-      closeAudioModal();
-      document.getElementById("audioFile").value = "";
-      toast("Audio saved", "Metadata stored locally.");
-      renderNotes();
-    }
-
-    // ----------------- SETTINGS: EXPORT/IMPORT/RESET -----------------
-    function exportData(){
-      const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "nuro-ai-export.json";
-      a.click();
-      URL.revokeObjectURL(url);
-      toast("Exported", "Downloaded your data file.");
-    }
-
-    function importData(){
-      const input = document.createElement("input");
-      input.type = "file";
-      input.accept = "application/json";
-      input.onchange = () => {
-        const f = input.files[0];
-        if(!f) return;
-        const r = new FileReader();
-        r.onload = () => {
-          try{
-            const parsed = JSON.parse(r.result);
-            state = parsed;
-            save();
-            toast("Imported", "Data loaded.");
-            renderNotes();
-          }catch(e){
-            alert("Invalid JSON file.");
-          }
-        };
-        r.readAsText(f);
-      };
-      input.click();
-    }
-
-    function resetAll(){
-      if(!confirm("This deletes everything saved on this device. Continue?")) return;
-      localStorage.removeItem(KEY);
-      state = load();
-      save();
-      toast("Reset", "All local data cleared.");
-      renderNotes();
-    }
-
-    // ----------------- UTIL -----------------
-    function safe(s){
-      return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-    }
-    function timeAgo(ts){
-      if(!ts) return "—";
-      const d = Date.now() - ts;
-      const mins = Math.floor(d/60000);
-      if(mins < 60) return `${mins} min ago`;
-      const hrs = Math.floor(mins/60);
-      if(hrs < 24) return `${hrs} hours ago`;
-      const days = Math.floor(hrs/24);
-      return `${days} days ago`;
-    }
-    function toast(title, msg){
-      const t = document.getElementById("toast");
-      t.innerHTML = `<div style="font-weight:900;">${safe(title)}</div><small>${safe(msg)}</small>`;
-      t.style.display = "block";
-      clearTimeout(window.__toastTimer);
-      window.__toastTimer = setTimeout(()=> t.style.display="none", 2600);
-    }
-
-    // Boot
-    setNotesTab(state.notesTab || "my");
-    renderNotes();
-
-    // (Optional) keyboard focus imitation
-    document.addEventListener("keydown", (e)=>{
-      if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k"){
-        e.preventDefault();
-        document.getElementById("searchInput").focus();
-      }
-    });
-  </script>
-</body>
-</html>
+      const title = document
